@@ -17,4 +17,10 @@ Route::get('/', function () {
 
 Auth::routes(['reset' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/', 'OrdersFeedController@index');
+
+    Route::post('/order/create', 'OrderManagementController@create');
+
+});
