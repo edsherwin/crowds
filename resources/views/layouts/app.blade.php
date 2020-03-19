@@ -75,6 +75,9 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+        @yield('foot_scripts')
     </div>
 </body>
 </html>

@@ -46,7 +46,7 @@
         				<p>
         				{{ $order->description }}
         				</p>
-        				<button class="btn btn-sm btn-success bid" data-recipient="{{ $order->user->name }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
+        				<button class="btn btn-sm btn-success bid" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
         			</div>
         		</div>
         	</div>
@@ -65,6 +65,82 @@
   	</div>
   </div>
 </div>
+
+<div class="modal fade" id="bid-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Order Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+            <form action="/bid/create" method="POST">
+                @csrf
+                <input type="hidden" name="order_id" id="order_id">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Recipient</strong>
+                        </div>
+                        <div class="col-md-8" id="order-recipient"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mt-2">
+                            <strong>Address</strong>
+                        </div>
+                        <div class="col-md-8 mt-2" id="order-address"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mt-2">
+                            <strong>Description</strong>
+                        </div>
+                        <div class="col-md-8 mt-2 mb-3" id="order-description">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mt-2">
+                            <strong>Posted at</strong>
+                        </div>
+                        <div class="col-md-8 mt-2 mb-3" id="order-datetime">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="service_fee" class="col-sm-4 col-form-label">How much will you charge?</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" name="service_fee" id="service_fee" placeholder="eg. 200">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="notes" class="col-sm-4 col-form-label">Notes</label>
+                      <div class="col-sm-8">
+                        <textarea class="form-control" name="notes" id="notes" rows="3" placeholder="eg. I can do this in 1 hour. I'm wearing blue shirt."></textarea>
+                      </div>
+                    </div>
+
+                    <button class="btn btn-primary float-right">Submit</button>
+                </div>
+            </form>
+        </div>
+      </div>
+
+  </div>
+</div>
+@endsection
+
+@section('foot_scripts')
+<script src="{{ mix('js/orders-feed.js') }}"></script>
 @endsection
 
 
