@@ -41,4 +41,10 @@ class BidController extends Controller
             ->with('alert', ['type' => 'success', 'text' => "Order marked as <strong>no show</strong>"]);
 
     }
+
+    public function index() {
+
+        $bids = Bid::byUser()->with(['order', 'order.user'])->latest()->paginate(10);
+        return view('bids', compact('bids'));
+    }
 }

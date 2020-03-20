@@ -31,4 +31,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::patch('/bid/{bid}/no_show', 'BidController@noShow');
     Route::patch('/bid/{bid}/fulfilled', 'BidController@fulfill');
+
+    Route::get('/bids', 'BidController@index');
 });

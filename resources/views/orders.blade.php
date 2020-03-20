@@ -34,7 +34,7 @@
                       @endif
                     @endif
                   </h6>
-            
+
                   <p>
                   {{ $order->description }}
                   </p>
@@ -42,7 +42,7 @@
                 </div>
               </div>
             </div>
-          
+
             @if (!is_null($order->bids))
               <div class="bids clearfix">
                 @foreach ($order->bids as $bid)
@@ -70,7 +70,7 @@
                     <div class="py-1">
                       {{ $bid->notes }}
                     </div>
-                    
+
                     @if ($order->status == 'posted' && $bid->status == 'posted')
                     <form action="/bid/{{ $bid->id }}/accept" method="POST">
                       @method('PATCH')
@@ -80,7 +80,7 @@
                     </form>
                     @endif
 
-                    @if ($bid->status == 'accepted') 
+                    @if ($bid->status == 'accepted')
                     <div>
                       <div class="float-right">
                         <form action="/bid/{{ $bid->id }}/fulfilled" method="POST">

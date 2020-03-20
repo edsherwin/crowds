@@ -55,4 +55,8 @@ class Bid extends Model
         $this->status = 'no_show';
         return $this;
     }
+
+    public function scopeByUser($query) {
+        return $query->where('user_id', Auth::id());
+    }
 }
