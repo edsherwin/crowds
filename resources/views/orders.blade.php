@@ -71,7 +71,7 @@
                       {{ $bid->notes }}
                     </div>
                     
-                    @if ($bid->status == 'posted')
+                    @if ($order->status == 'posted' && $bid->status == 'posted')
                     <form action="/bid/{{ $bid->id }}/accept" method="POST">
                       @method('PATCH')
                       @csrf
