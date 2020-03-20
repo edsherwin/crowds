@@ -16,7 +16,7 @@ class CreateBidsTable extends Migration
         Schema::create('bids', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('orders_id');
+            $table->bigInteger('order_id');
             $table->bigInteger('user_id');
 
             $table->double('service_fee');
