@@ -47,4 +47,10 @@ class User extends Authenticatable
     public function orders() {
         return $this->hasMany(Order::class);
     }
+
+
+    public function hasNoBids($bids) {
+        $user_ids = $bids->pluck('user_id')->toArray();
+        return !in_array($this->id, $user_ids);
+    }
 }

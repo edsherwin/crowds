@@ -54,7 +54,7 @@
           				{{ $order->description }}
           				</p>
 
-                  @if (Auth::id() != $order->user->id)
+                  @if (Auth::id() != $order->user->id && Auth::user()->hasNoBids($order->bids))
           				<button class="btn btn-sm btn-success float-right bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
                   @endif
           			</div>
