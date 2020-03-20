@@ -70,6 +70,26 @@
                     </form>
                     @endif
 
+                    @if ($bid->status == 'accepted') 
+                    <div>
+                      <div class="float-right">
+                        <form action="/bid/{{ $bid->id }}/fulfilled" method="POST">
+                          @csrf
+                          @method('PATCH')
+                          <button class="btn btn-sm btn-success">Fulfilled</button>
+                        </form>
+                      </div>
+
+                      <div class="float-right">
+                        <form action="/bid/{{ $bid->id }}/no_show" method="POST">
+                          @csrf
+                          @method('PATCH')
+                          <button class="btn btn-sm btn-danger mr-2">No show</button>
+                        </form>
+                      </div>
+                    </div>
+                    @endif
+
                   </div>
                 </div>
                 @endforeach

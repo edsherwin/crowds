@@ -27,5 +27,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/orders', 'OrdersController@index');
 
-    Route::patch('/bid/{bid}/accept', 'BidController@update');
+    Route::patch('/bid/{bid}/accept', 'BidController@accept');
+
+    Route::patch('/bid/{bid}/no_show', 'BidController@noShow');
+    Route::patch('/bid/{bid}/fulfilled', 'BidController@fulfill');
 });

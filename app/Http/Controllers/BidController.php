@@ -20,13 +20,25 @@ class BidController extends Controller
     		->with('alert', ['type' => 'success', 'text' => "Bid created! We'll notify you once this gets accepted."]);
     }
 
-
-    public function update(Bid $bid) {
+    public function accept(Bid $bid) {
 
     	$bidder = request('_bidder');
     	$bid->accept()->save();
 
     	return back()
     		->with('alert', ['type' => 'success', 'text' => "Bid accepted! We notified {$bidder} so they can proceed."]);
+    }
+
+    public function fulfill(Bid $bid) {
+        $bid->fulfill()->save();
+        return back()
+            ->with('alert', ['type' => 'success', 'text' => "Order marked as <strong>fulfilled</strong>"]);
+    }
+
+    public function noShow(Bid $bid) {
+        $bid->noShow()->save();
+        return back()
+            ->with('alert', ['type' => 'success', 'text' => "Order marked as <strong>no show</strong>"]);
+
     }
 }

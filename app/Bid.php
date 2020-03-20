@@ -22,7 +22,7 @@ class Bid extends Model
 
         static::updating(function ($model) {
         	$model->order->update([
-        		'status' => 'accepted'
+        		'status' => ($model->status == 'no_show') ? 'posted' : 'fulfilled'
         	]);
         });
     }
@@ -44,5 +44,15 @@ class Bid extends Model
     		$this->status = 'accepted';
     	}
     	return $this;
+    }
+
+    public function fulfill() {
+        $this->status = 'fulfilled';
+        return $this;
+    }
+
+    public function noShow() {
+        $this->status = 'no_show';
+        return $this;
     }
 }
