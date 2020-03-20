@@ -22,7 +22,7 @@ class Bid extends Model
 
         static::updating(function ($model) {
         	$model->order->update([
-        		'status' => ($model->status == 'no_show') ? 'posted' : 'fulfilled'
+        		'status' => ($model->status == 'no_show') ? 'posted' : $model->status
         	]);
         });
     }
