@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Bid;
 
 class Order extends Model
 {
@@ -14,6 +15,10 @@ class Order extends Model
 
     public function user() {
     	return $this->belongsTo(User::class);
+    }
+
+    public function bids() {
+    	return $this->hasMany(Bid::class);
     }
 
 }

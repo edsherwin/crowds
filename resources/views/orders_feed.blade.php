@@ -32,39 +32,48 @@
 
   <div class="row justify-content-center">
   	<div class="col-md-4 mt-5">
-        @if (count($orders) > 0)
-          	@foreach ($orders as $order)
-        	<div class="card mb-2">
-        		<div class="card-body">
-        			<div class="float-right">
-        				<small>{{ $order->created_at }}</small>
-        			</div>
+      @if (count($orders) > 0)
+        @foreach ($orders as $order)
+          <div class="my-3">
+          	<div class="card">
+          		<div class="card-body">
+          			<div class="float-right">
+          				<small>{{ $order->created_at }}</small>
+          			</div>
 
-        			<div class="mt-1">
-        				<h6>{{ $order->user->name }}</h6>
+          			<div class="mt-1">
+          				<h6>{{ $order->user->name }}</h6>
+                  
+                  @if ($order->bids->count())
+                  <div class="mb-2">
+                    <span class="badge badge-pill badge-primary">{{ $order->bids->count() }} bids</span>
+                  </div>
+                  @endif
 
-        				<p>
-        				{{ $order->description }}
-        				</p>
+          				<p>
+          				{{ $order->description }}
+          				</p>
 
-                @if (Auth::id() != $order->user->id)
-        				<button class="btn btn-sm btn-success bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
-                @endif
-        			</div>
-        		</div>
-        	</div>
-        	@endforeach
+                  @if (Auth::id() != $order->user->id)
+          				<button class="btn btn-sm btn-success float-right bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
+                  @endif
+          			</div>
+          		</div>
+          	</div>
+          
+          </div>
+      	@endforeach
 
-            <div>
-            {{ $orders->links() }}
-            </div>
-        @endif
+        <div>
+        {{ $orders->links() }}
+        </div>
+      @endif
 
-        @if (count($orders) == 0)
+      @if (count($orders) == 0)
     	<div class="alert alert-info">
     		No orders in your neighborhood yet.
     	</div>
-      	@endif
+      @endif
   	</div>
   </div>
 </div>
