@@ -23,4 +23,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/order/create', 'OrderManagementController@create');
 
+    Route::post('/bid/create', 'BidController@create');
+
 });

@@ -48,7 +48,7 @@
         				</p>
 
                 @if (Auth::id() != $order->user->id)
-        				<button class="btn btn-sm btn-success bid" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
+        				<button class="btn btn-sm btn-success bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
                 @endif
         			</div>
         		</div>
@@ -83,21 +83,29 @@
         <div class="modal-body">
             <form action="/bid/create" method="POST">
                 @csrf
-                <input type="hidden" name="order_id" id="order_id">
+                <input type="hidden" name="order_id" id="order_id" value="{{ old('order_id') }}">
+                <input type="hidden" name="order_recipient" id="order_recipient" value="{{ old('order_recipient') }}">
+                <input type="hidden" name="order_address" id="order_address" value="{{ old('order_address') }}">
+                <input type="hidden" name="order_description" id="order_description" value="{{ old('order_description') }}">
+                <input type="hidden" name="order_created_at" id="order_created_at" value="{{ old('order_created_at') }}">
 
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
                             <strong>Recipient</strong>
                         </div>
-                        <div class="col-md-8" id="order-recipient"></div>
+                        <div class="col-md-8" id="order-recipient">
+                        {{ old('order_recipient') }}
+                      </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4 mt-2">
                             <strong>Address</strong>
                         </div>
-                        <div class="col-md-8 mt-2" id="order-address"></div>
+                        <div class="col-md-8 mt-2" id="order-address">
+                        {{ old('order_address') }}
+                        </div>
                     </div>
 
                     <div class="row">
@@ -105,7 +113,7 @@
                             <strong>Description</strong>
                         </div>
                         <div class="col-md-8 mt-2 mb-3" id="order-description">
-
+                        {{ old('order_description') }}
                         </div>
                     </div>
 
@@ -114,21 +122,33 @@
                             <strong>Posted at</strong>
                         </div>
                         <div class="col-md-8 mt-2 mb-3" id="order-datetime">
-
+                        {{ old('order_created_at') }}
                         </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="service_fee" class="col-sm-4 col-form-label">How much will you charge?</label>
                       <div class="col-sm-8">
-                        <input type="text" class="form-control" name="service_fee" id="service_fee" placeholder="eg. 200">
+                        <input type="text" class="form-control @error('service_fee') is-invalid @enderror" name="service_fee" id="service_fee" placeholder="eg. 200" value="{{ old('service_fee') }}">
+
+                        @error('service_fee')
+                          <span class="invalid-feedback bid-modal-error" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="notes" class="col-sm-4 col-form-label">Notes</label>
                       <div class="col-sm-8">
-                        <textarea class="form-control" name="notes" id="notes" rows="3" placeholder="eg. I can do this in 1 hour. I'm wearing blue shirt."></textarea>
+                        <textarea class="form-control @error('notes') is-invalid @enderror" name="notes" id="notes" rows="3" placeholder="eg. I can do this in 1 hour. I'm wearing blue shirt.">{{ old('notes') }}</textarea>
+
+                        @error('notes')
+                          <span class="invalid-feedback bid-modal-error" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
                       </div>
                     </div>
 
