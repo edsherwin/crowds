@@ -25,4 +25,8 @@ class Order extends Model
     	return $this->status = 'accepted';
     }
 
+    public function scopePosted($query) {
+        return $query->where('status', 'posted');
+    }
+
 }

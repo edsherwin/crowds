@@ -8,7 +8,10 @@ use App\Order;
 class OrdersFeedController extends Controller
 {
     public function index() {
-    	$orders = Order::with(['user', 'user.detail', 'bids'])->latest()->paginate(10);
+    	$orders = Order::with(['user', 'user.detail', 'bids'])
+    		->posted()
+    		->latest()
+    		->paginate(10);
     	return view('orders_feed', compact('orders'));
     }
 }
