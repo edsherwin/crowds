@@ -51,6 +51,10 @@
                       @if ($bid->status == 'accepted')
                       <span class="badge badge-pill badge-warning">accepted</span>
                       @endif
+
+                      @if ($bid->status == 'no_show')
+                      <span class="badge badge-pill badge-danger">no show</span>
+                      @endif
                     </div>
 
                     <div class="mt-2">
@@ -61,7 +65,7 @@
                       {{ $bid->notes }}
                     </div>
                     
-                    @if ($order->status == 'posted')
+                    @if ($bid->status == 'posted')
                     <form action="/bid/{{ $bid->id }}/accept" method="POST">
                       @method('PATCH')
                       @csrf
