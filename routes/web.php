@@ -24,4 +24,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/order/create', 'OrdersController@create');
 
     Route::post('/bid/create', 'BidController@create');
+
+    Route::get('/orders', 'OrdersController@index');
 });

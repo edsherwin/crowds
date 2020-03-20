@@ -19,4 +19,15 @@ class OrdersController extends Controller
     	return back()
     		->with('alert', ['type' => 'success', 'text' => "Request Created! <br/>Please wait for someone in your neighborhood to submit a bid."]);
     }
+
+
+    public function index() {
+    	
+    	$orders = Order::where('user_id', Auth::id())
+    		->with(['bids', 'bids.user'])
+    		->latest()
+    		->paginate(10);
+
+    	return view('orders', compact('orders'));
+    }
 }
