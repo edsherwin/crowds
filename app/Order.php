@@ -21,6 +21,10 @@ class Order extends Model
     	return $this->hasMany(Bid::class);
     }
 
+    public function postedBids() {
+        return $this->hasMany(Bid::class)->where('status', 'posted');
+    }
+
     public function accept() {
     	return $this->status = 'accepted';
     }
