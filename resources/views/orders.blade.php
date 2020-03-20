@@ -26,6 +26,8 @@
                     Order #{{ orderNumber($order->id) }}
                     @if ($order->status == 'accepted')
                       <span class="badge badge-pill badge-warning">accepted</span>
+                    @elseif ($order->status == 'fulfilled')
+                      <span class="badge badge-pill badge-success">fulfilled</span>
                     @else
                       @if ($order->bids->count())
                       <span class="badge badge-pill badge-primary">{{ $order->bids->count() }} bids</span>
@@ -55,6 +57,10 @@
                       @if ($bid->status == 'no_show')
                       <span class="badge badge-pill badge-danger">no show</span>
                       @endif
+
+                      @if ($bid->status == 'fulfilled')
+                      <span class="badge badge-pill badge-success">fulfilled</span>
+                      @endif
                     </div>
 
                     <div class="mt-2">
@@ -70,7 +76,7 @@
                       @method('PATCH')
                       @csrf
                       <input type="hidden" name="_bidder" value="{{ $bid->user->name }}">
-                      <button class="btn btn-sm btn-success float-right">Accept</button>
+                      <button class="btn btn-sm btn-primary float-right">Accept</button>
                     </form>
                     @endif
 
