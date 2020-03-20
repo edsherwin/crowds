@@ -46,7 +46,10 @@
         				<p>
         				{{ $order->description }}
         				</p>
+
+                @if (Auth::id() != $order->user->id)
         				<button class="btn btn-sm btn-success bid" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
+                @endif
         			</div>
         		</div>
         	</div>
