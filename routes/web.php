@@ -26,4 +26,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/bid/create', 'BidController@create');
 
     Route::get('/orders', 'OrdersController@index');
+
+    Route::patch('/bid/{bid}/accept', 'BidController@update');
 });

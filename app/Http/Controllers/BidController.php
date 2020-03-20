@@ -18,6 +18,15 @@ class BidController extends Controller
 
     	return back()
     		->with('alert', ['type' => 'success', 'text' => "Bid created! We'll notify you once this gets accepted."]);
+    }
 
+
+    public function update(Bid $bid) {
+
+    	$bidder = request('_bidder');
+    	$bid->accept()->save();
+
+    	return back()
+    		->with('alert', ['type' => 'success', 'text' => "Bid accepted! We notified {$bidder} so they can proceed."]);
     }
 }

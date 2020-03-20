@@ -21,4 +21,8 @@ class Order extends Model
     	return $this->hasMany(Bid::class);
     }
 
+    public function accept() {
+    	return $this->status = 'accepted';
+    }
+
 }
