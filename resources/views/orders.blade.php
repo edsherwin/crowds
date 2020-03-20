@@ -24,8 +24,12 @@
                 <div class="mt-1">
                   <h6>
                     Order #{{ orderNumber($order->id) }}
-                    @if ($order->bids->count())
-                    <span class="badge badge-pill badge-primary">{{ $order->bids->count() }} bids</span>
+                    @if ($order->status == 'accepted')
+                      <span class="badge badge-pill badge-warning">accepted</span>
+                    @else
+                      @if ($order->bids->count())
+                      <span class="badge badge-pill badge-primary">{{ $order->bids->count() }} bids</span>
+                      @endif
                     @endif
                   </h6>
             
@@ -43,7 +47,10 @@
                 <div class="card mt-1 offset-md-2">
                   <div class="card-body">
                     <div>
-                    {{ $bid->user->name }}
+                      {{ $bid->user->name }}
+                      @if ($bid->status == 'accepted')
+                      <span class="badge badge-pill badge-warning">accepted</span>
+                      @endif
                     </div>
 
                     <div class="mt-2">
@@ -54,12 +61,14 @@
                       {{ $bid->notes }}
                     </div>
                     
+                    @if ($order->status == 'posted')
                     <form action="/bid/{{ $bid->id }}/accept" method="POST">
                       @method('PATCH')
                       @csrf
                       <input type="hidden" name="_bidder" value="{{ $bid->user->name }}">
                       <button class="btn btn-sm btn-success float-right">Accept</button>
                     </form>
+                    @endif
 
                   </div>
                 </div>
