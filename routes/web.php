@@ -21,8 +21,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'OrdersFeedController@index');
 
-    Route::post('/order/create', 'OrderManagementController@create');
+    Route::post('/order/create', 'OrdersController@create');
 
     Route::post('/bid/create', 'BidController@create');
-
 });

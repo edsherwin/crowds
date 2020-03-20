@@ -7,7 +7,7 @@ use App\Http\Requests\ValidateOrder;
 use App\Order;
 use Auth;
 
-class OrderManagementController extends Controller
+class OrdersController extends Controller
 {
     public function create(ValidateOrder $request) {
 
@@ -19,6 +19,4 @@ class OrderManagementController extends Controller
     	return back()
     		->with('alert', ['type' => 'success', 'text' => "Request Created! <br/>Please wait for someone in your neighborhood to submit a bid."]);
     }
-
-
 }
