@@ -9,6 +9,7 @@ use App\UserDetail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -52,11 +53,26 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            // TODO: validate if province -> city -> barangay relationship is ok (e.g can't have a barangay from a different city or province)
+            'province' => ['required', 'string', 'exists:provinces,id'],
+            'city' => ['required', 'string', 'exists:cities,id'],
+            'barangay' => ['required', 'string', 'exists:barangays,id'],
+
             'address' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'numeric', 'digits:11'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+    }
+
+    protected function showRegistrationForm() {
+        // NOTE: hard-coded for now because it will only be used in a single city
+        // LATER TODO: the cities and barangays should be loaded via ajax
+        $provinces = DB::table('provinces')->where('id', 1)->get();
+        $cities = DB::table('cities')->where('province_id', 1)->get();
+        $barangays = DB::table('barangays')->where('city_id', 1)->get();
+
+        return view('auth.register', compact('provinces', 'cities', 'barangays'));
     }
 
     /**
@@ -70,6 +86,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'barangay_id' => $data['barangay'],
             'password' => Hash::make($data['password']),
         ]);
 

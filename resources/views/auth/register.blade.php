@@ -26,6 +26,60 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="province" class="col-md-4 col-form-label text-md-right">{{ __('Province') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="province" id="province" class="form-control @error('province') is-invalid @enderror">
+                                    @foreach($provinces as $province)
+                                    <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                @error('province')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
+                                    @foreach($cities as $city)
+                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                @error('city')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="barangay" class="col-md-4 col-form-label text-md-right">{{ __('Barangay') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="barangay" id="barangay" class="form-control @error('barangay') is-invalid @enderror">
+                                    @foreach($barangays as $brgy)
+                                    <option value="{{ $brgy->id }}">{{ $brgy->name }}</option>
+                                    @endforeach
+                                </select>
+    
+                                @error('barangay')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                             <div class="col-md-6">
