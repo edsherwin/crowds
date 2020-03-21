@@ -77,6 +77,7 @@
                       @csrf
                       @honeypot
                       <input type="hidden" name="_bidder" value="{{ $bid->user->name }}">
+                      <input type="hidden" name="_order_id" value="{{ $order->id }}">
                       <button class="btn btn-sm btn-primary float-right">Accept</button>
                     </form>
                     @endif

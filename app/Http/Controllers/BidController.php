@@ -8,6 +8,7 @@ use App\Bid;
 use App\Order;
 use Auth;
 use App\Notifications\BidReceived;
+use App\Notifications\BidAccepted;
 
 class BidController extends Controller
 {
@@ -35,6 +36,9 @@ class BidController extends Controller
 
     	$bidder = request('_bidder');
     	$bid->accept()->save();
+
+        $order_id = request('_order_id');
+        $bid->user->notify(new BidAccepted($order_id, Auth::user()->name));
 
     	return back()
     		->with('alert', ['type' => 'success', 'text' => "Bid accepted! We notified {$bidder} so they can proceed."]);
