@@ -59,4 +59,8 @@ class User extends Authenticatable
     public function barangay() {
         return $this->belongsTo(Barangay::class);
     }
+
+    public function ordersToday() {
+        return $this->hasMany(Order::class)->whereRaw("DATE(created_at) = ?", [now()->toDateString()]);
+    }
 }
