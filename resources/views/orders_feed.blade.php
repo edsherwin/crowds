@@ -94,6 +94,7 @@
         <div class="modal-body">
             <form action="/bid/create" method="POST">
                 @csrf
+                @honeypot
                 <input type="hidden" name="order_id" id="order_id" value="{{ old('order_id') }}">
                 <input type="hidden" name="order_recipient" id="order_recipient" value="{{ old('order_recipient') }}">
                 <input type="hidden" name="order_address" id="order_address" value="{{ old('order_address') }}">
