@@ -12,6 +12,14 @@
     <div class="col-md-4">
       
       @if (count($unread) > 0)
+        <div class="mt-3">
+          <form action="/notifications" method="POST">
+            @method('PATCH')
+            @csrf
+            @honeypot
+            <button class="btn btn-block btn-primary">Mark all as read</button>
+          </form>
+        </div>
         @foreach ($unread as $notification)
           <div class="my-2">
             <div class="card">
@@ -51,7 +59,7 @@
       @endif
 
       @if (count($unread) == 0)
-      <div class="alert alert-info">
+      <div class="alert alert-info mt-3">
         No notifications at this time
       </div>
       @endif

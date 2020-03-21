@@ -11,4 +11,9 @@ class NotificationsController extends Controller
     	$unread = Auth::user()->unreadNotifications;
     	return view('notifications', compact('unread'));
     }
+
+    public function update() {
+    	Auth::user()->unreadNotifications->markAsRead();
+    	return back();
+    }
 }
