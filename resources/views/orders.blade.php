@@ -75,6 +75,7 @@
                     <form action="/bid/{{ $bid->id }}/accept" method="POST">
                       @method('PATCH')
                       @csrf
+                      @honeypot
                       <input type="hidden" name="_bidder" value="{{ $bid->user->name }}">
                       <button class="btn btn-sm btn-primary float-right">Accept</button>
                     </form>
@@ -84,16 +85,18 @@
                     <div>
                       <div class="float-right">
                         <form action="/bid/{{ $bid->id }}/fulfilled" method="POST">
-                          @csrf
                           @method('PATCH')
+                          @csrf
+                          @honeypot
                           <button class="btn btn-sm btn-success">Fulfilled</button>
                         </form>
                       </div>
 
                       <div class="float-right">
                         <form action="/bid/{{ $bid->id }}/no_show" method="POST">
-                          @csrf
                           @method('PATCH')
+                          @csrf
+                          @honeypot
                           <button class="btn btn-sm btn-danger mr-2">No show</button>
                         </form>
                       </div>

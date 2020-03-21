@@ -66,6 +66,7 @@
             <form action="/bid/{{ $bid->id }}" method="POST">
                 @method('PATCH')
                 @csrf
+                @honeypot
                 <button class="btn btn-sm btn-danger float-right">Cancel</button>
             </form>
             @endif
