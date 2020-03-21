@@ -11,13 +11,19 @@ class BidController extends Controller
 {
     public function create(ValidateBid $request) {
 
-    	Bid::create(array_merge($request->validated(), [
-    		'user_id' => Auth::id(),
-    		'status' => 'posted'
-    	]));
-
-    	return back()
-    		->with('alert', ['type' => 'success', 'text' => "Bid created! We'll notify you once this gets accepted."]);
+        try {
+            Bid::submit(array_merge($request->validated(), [
+                'user_id' => Auth::id(),
+                'status' => 'posted'
+            ]));
+        } catch (\Exception $e) {
+            return back()
+                ->with('alert', ['type' => 'danger', 'text' => $e->getMessage()]);
+        }
+    	
+        return back()
+            ->with('alert', ['type' => 'success', 'text' => "Bid created! We'll notify you once this gets accepted."]);
+    	
     }
 
     public function accept(Bid $bid) {

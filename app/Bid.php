@@ -82,4 +82,14 @@ class Bid extends Model
         }
         return $this;
     }
+
+    public static function submit($data) {
+        $order = Order::find($data['order_id']);
+        
+        if (Auth::user()->hasNoBids($order->bids)) {
+            self::create($data);
+        } else {
+            throw new \Exception("You can no longer submit a bid to an order which you've previously cancelled.");
+        }
+    }
 }
