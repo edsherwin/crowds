@@ -11,6 +11,7 @@ class OrdersFeedController extends Controller
     	$orders = Order::with(['user', 'user.detail', 'postedBids'])
     		->posted()
     		->sameBarangay()
+    		->createdWithinADay()
     		->latest()
     		->paginate(10);
     	return view('orders_feed', compact('orders'));

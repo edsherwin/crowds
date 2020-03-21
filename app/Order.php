@@ -38,4 +38,9 @@ class Order extends Model
         return $query->where('barangay_id', Auth::user()->barangay_id);
     }
 
+    public function scopeCreatedWithinADay($query) {
+        $datetime_now = now()->toDatetimeString();
+        return $query->whereRaw("TIMESTAMPDIFF(HOUR, created_at, '{$datetime_now}') <= 24");
+    }
+
 }
