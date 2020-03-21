@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\UserDetail;
 use App\Order;
 use App\Barangay;
+use App\Bid;
 
 class User extends Authenticatable
 {
@@ -62,5 +63,10 @@ class User extends Authenticatable
 
     public function ordersToday() {
         return $this->hasMany(Order::class)->whereRaw("DATE(created_at) = ?", [now()->toDateString()]);
+    }
+
+    public function bidsToday() {
+        return $this->hasMany(Bid::class)
+            ->whereRaw("DATE(created_at) = ?", [now()->toDateString()]);
     }
 }

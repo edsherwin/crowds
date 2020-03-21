@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/order/create', 'OrdersController@create')->middleware('limit.order');
 
-    Route::post('/bid/create', 'BidController@create');
+    Route::post('/bid/create', 'BidController@create')->middleware('limit.bid');
 
     Route::get('/orders', 'OrdersController@index');
 

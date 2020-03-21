@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'limit.order' => \App\Http\Middleware\LimitOrder::class,
+        'limit.bid' => \App\Http\Middleware\LimitBid::class,
     ];
 
     /**
