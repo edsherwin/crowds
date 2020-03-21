@@ -47,4 +47,11 @@ class BidController extends Controller
         $bids = Bid::byUser()->with(['order', 'order.user'])->latest()->paginate(10);
         return view('bids', compact('bids'));
     }
+
+    public function cancel(Bid $bid) {
+
+        $bid->cancel(request('cancel_reason'))->save();
+        return back()
+            ->with('alert', ['type' => 'success', 'text' => "Your bid has been cancelled."]);
+    }
 }

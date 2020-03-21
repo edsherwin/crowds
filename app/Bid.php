@@ -21,9 +21,25 @@ class Bid extends Model
         });
 
         static::updating(function ($model) {
-        	$model->order->update([
-        		'status' => ($model->status == 'no_show') ? 'posted' : $model->status
-        	]);
+
+            $order_status = [
+                'no_show' => 'posted',
+                'accepted' => 'accepted',
+                'cancelled' => null,
+                'fulfilled' => 'fulfilled'
+            ];
+
+            if (!is_null($order_status[$model->status])) {
+                $model->order->update([
+                    'status' => $order_status[$model->status]
+                ]);
+            }
+
+            if ($model->status == 'cancelled' && $model->order->postedBids->count() == 0) {
+                $model->order->update([
+                    'status' => 'posted'
+                ]);
+            }
         });
     }
 
@@ -58,5 +74,12 @@ class Bid extends Model
 
     public function scopeByUser($query) {
         return $query->where('user_id', Auth::id());
+    }
+
+    public function cancel() {
+        if ($this->user_id == Auth::id()) {
+            $this->status = 'cancelled';
+        }
+        return $this;
     }
 }

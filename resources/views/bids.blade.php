@@ -15,7 +15,7 @@
       @if (count($bids) > 0)
       <div class="bids clearfix">
         @foreach ($bids as $bid)
-        <div class="card mt-1 offset-md-2">
+        <div class="card mt-1">
           <div class="card-body">
             <div class="float-right">
               <small>{{ $bid->order->created_at }}</small>
@@ -24,19 +24,22 @@
             <div class="mt-1">
               <h6>
                 Order #{{ orderNumber($bid->order->id) }}
+                @if ($bid->status == 'accepted')
+                <span class="badge badge-pill badge-warning">accepted</span>
+                @endif
+
+                @if ($bid->status == 'no_show')
+                <span class="badge badge-pill badge-danger">no show</span>
+                @endif
+
+                @if ($bid->status == 'fulfilled')
+                <span class="badge badge-pill badge-success">fulfilled</span>
+                @endif
+
+                @if ($bid->status == 'cancelled')
+                <span class="badge badge-pill badge-danger">cancelled</span>
+                @endif
               </h6>
-
-              @if ($bid->status == 'accepted')
-              <span class="badge badge-pill badge-warning">accepted</span>
-              @endif
-
-              @if ($bid->status == 'no_show')
-              <span class="badge badge-pill badge-danger">no show</span>
-              @endif
-
-              @if ($bid->status == 'fulfilled')
-              <span class="badge badge-pill badge-success">fulfilled</span>
-              @endif
             </div>
 
             <hr>
@@ -58,6 +61,14 @@
             <div class="py-1">
               {{ $bid->notes }}
             </div>
+
+            @if ($bid->status != 'cancelled')
+            <form action="/bid/{{ $bid->id }}" method="POST">
+                @method('PATCH')
+                @csrf
+                <button class="btn btn-sm btn-danger float-right">Cancel</button>
+            </form>
+            @endif
 
           </div>
         </div>
