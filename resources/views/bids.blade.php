@@ -61,8 +61,8 @@
             <div class="py-1">
               {{ $bid->notes }}
             </div>
-
-            @if ($bid->status != 'cancelled')
+            
+            @if ($bid->status == 'posted' || $bid->status == 'accepted')
             <button class="btn btn-sm btn-danger float-right" data-id="{{ $bid->id }}" id="show-bid-cancel-modal">Cancel</button>
             @endif
 
