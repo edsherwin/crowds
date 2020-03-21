@@ -116,7 +116,7 @@
 
       @if (count($orders) == 0)
       <div class="alert alert-info">
-        No orders in your neighborhood yet.
+        You haven't posted any orders yet.
       </div>
       @endif
     </div>
