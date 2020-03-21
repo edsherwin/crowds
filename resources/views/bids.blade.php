@@ -63,12 +63,7 @@
             </div>
 
             @if ($bid->status != 'cancelled')
-            <form action="/bid/{{ $bid->id }}" method="POST">
-                @method('PATCH')
-                @csrf
-                @honeypot
-                <button class="btn btn-sm btn-danger float-right">Cancel</button>
-            </form>
+            <button class="btn btn-sm btn-danger float-right" data-id="{{ $bid->id }}" id="show-bid-cancel-modal">Cancel</button>
             @endif
 
           </div>
@@ -83,4 +78,47 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="bid-cancel-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cancel Bid</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+            <form action="#" method="POST" id="bid-cancel-form">
+                @method('PATCH')
+                @csrf
+                @honeypot
+                <div class="container">
+                    <div class="form-group row">
+                      <label for="cancel_reason" class="col-sm-5 col-form-label">Cancellation Reason</label>
+                      <div class="col-sm-7">
+                        <input type="text" class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" placeholder="eg. The dog ate my homework" value="{{ old('cancel_reason') }}">
+
+                        @error('cancel_reason')
+                          <span class="invalid-feedback bid-modal-error" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                      </div>
+                    </div>
+
+                    <button class="btn btn-danger float-right">Cancel Bid</button>
+                </div>
+            </form>
+        </div>
+      </div>
+
+  </div>
+</div>
+@endsection
+
+@section('foot_scripts')
+<script src="{{ mix('js/bids.js') }}"></script>
 @endsection

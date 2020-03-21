@@ -9,6 +9,7 @@ use App\Order;
 use Auth;
 use App\Notifications\BidReceived;
 use App\Notifications\BidAccepted;
+use App\Notifications\BidCancelled;
 
 class BidController extends Controller
 {
@@ -66,6 +67,9 @@ class BidController extends Controller
     public function cancel(Bid $bid) {
 
         $bid->cancel(request('cancel_reason'))->save();
+        $order_id = $bid->order->id;
+            Order::find($order_id)->user->notify(new BidCancelled($order_id, Auth::user()->name));
+
         return back()
             ->with('alert', ['type' => 'success', 'text' => "Your bid has been cancelled."]);
     }

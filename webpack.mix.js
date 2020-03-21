@@ -16,4 +16,6 @@ mix.react("resources/js/app.js", "public/js").sass(
     "public/css"
 );
 
-mix.js("resources/js/orders-feed.js", "public/js").version();
+mix.js("resources/js/orders-feed.js", "public/js")
+	.js("resources/js/bids.js", "public/js")
+	.version();
