@@ -89,6 +89,7 @@
                           @method('PATCH')
                           @csrf
                           @honeypot
+                          <input type="hidden" name="_order_id" value="{{ $order->id }}">
                           <button class="btn btn-sm btn-success">Fulfilled</button>
                         </form>
                       </div>

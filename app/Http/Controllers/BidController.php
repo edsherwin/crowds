@@ -11,6 +11,7 @@ use App\Notifications\BidReceived;
 use App\Notifications\BidAccepted;
 use App\Notifications\BidCancelled;
 use App\Notifications\BidNoShow;
+use App\Notifications\BidFulfilled;
 
 class BidController extends Controller
 {
@@ -48,6 +49,10 @@ class BidController extends Controller
 
     public function fulfill(Bid $bid) {
         $bid->fulfill()->save();
+        $order_id = request('_order_id');
+
+        $bid->user->notify(new BidFulfilled($order_id, Auth::user()->name));
+
         return back()
             ->with('alert', ['type' => 'success', 'text' => "Order marked as <strong>fulfilled</strong>"]);
     }
