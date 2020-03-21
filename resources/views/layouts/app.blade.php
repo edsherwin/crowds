@@ -61,7 +61,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/notifications">
                                     <i class="fa fa-bell"></i>
-                                    @if (Auth::user()->unreadNotifications)
+                                    @if (Auth::user()->unreadNotifications->count())
                                     <span class="badge badge-pill badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
                                     @endif
                                 </a>
