@@ -14,6 +14,7 @@
 
 		<form method="POST" action="/order/create">
 			@csrf
+      @honeypot
 			<div class="form-group">
 			    <label for="description">What do you need?</label>
 			    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3" placeholder="12 eggs, 1 loaf bread, 1 fresh milk"></textarea>
