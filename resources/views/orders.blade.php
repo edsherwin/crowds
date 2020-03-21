@@ -98,6 +98,7 @@
                           @method('PATCH')
                           @csrf
                           @honeypot
+                          <input type="hidden" name="_order_id" value="{{ $order->id }}">
                           <button class="btn btn-sm btn-danger mr-2">No show</button>
                         </form>
                       </div>
