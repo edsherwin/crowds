@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Bid;
+use Auth;
 
 class Order extends Model
 {
     protected $fillable = [
-    	'user_id', 'description', 'status'
+    	'user_id', 'barangay_id', 'description', 'status'
     ];
 
 
@@ -31,6 +32,10 @@ class Order extends Model
 
     public function scopePosted($query) {
         return $query->where('status', 'posted');
+    }
+
+    public function scopeSameBarangay($query) {
+        return $query->where('barangay_id', Auth::user()->barangay_id);
     }
 
 }

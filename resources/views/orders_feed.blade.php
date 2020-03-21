@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-4">
-      <h5>Orders Feed</h5>
+      <h5>Orders Feed (Brgy. {{ Auth::user()->barangay->name }})</h5>
     </div>
   </div>
 

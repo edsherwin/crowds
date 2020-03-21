@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\UserDetail;
 use App\Order;
+use App\Barangay;
 
 class User extends Authenticatable
 {
@@ -52,5 +53,10 @@ class User extends Authenticatable
     public function hasNoBids($bids) {
         $user_ids = $bids->pluck('user_id')->toArray();
         return !in_array($this->id, $user_ids);
+    }
+
+
+    public function barangay() {
+        return $this->belongsTo(Barangay::class);
     }
 }
