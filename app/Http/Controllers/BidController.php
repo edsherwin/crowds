@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidateBid;
 use App\Bid;
+use App\Order;
 use Auth;
+use App\Notifications\BidReceived;
 
 class BidController extends Controller
 {
     public function create(ValidateBid $request) {
-
         try {
-            Bid::submit(array_merge($request->validated(), [
+            $bid = Bid::submit(array_merge($request->validated(), [
                 'user_id' => Auth::id(),
                 'status' => 'posted'
             ]));
+
+            $order_id = request('order_id');
+            Order::find($order_id)->user->notify(new BidReceived($order_id, Auth::user()->name));
+
         } catch (\Exception $e) {
             return back()
                 ->with('alert', ['type' => 'danger', 'text' => $e->getMessage()]);
