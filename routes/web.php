@@ -35,4 +35,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bids', 'BidController@index');
 
     Route::patch('/bid/{bid}/cancel', 'BidController@cancel');
+
+    Route::get('/notifications', 'NotificationsController@index');
 });
