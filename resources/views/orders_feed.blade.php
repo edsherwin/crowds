@@ -84,28 +84,37 @@ function checkLoginState() {
           <div class="my-3">
             <div class="card">
               <div class="card-body">
+               
                 <div class="float-right">
-                  <small>{{ $order->created_at }}</small>
+                  <small>{{ diffForHumans($order->created_at) }}</small>
+                </div>
+                
+                <div class="d-flex flex-row mt-1">
+                  <div>
+                    <img src="{{ $order->user->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ $order->user->name }}">
+                  </div>
+                  <div class="pl-2">
+                    <strong>{{ $order->user->name }}</strong
+                    >
+                    <div>
+                      @if ($order->postedBids->count())
+                      <span class="badge badge-pill badge-primary">{{ $order->postedBids->count() }} bids</span>
+                      @endif
+                    </div>
+                  </div>
                 </div>
 
                 <div class="mt-1">
-                  <h6>{{ $order->user->name }}</h6>
-                  
-                  @if ($order->postedBids->count())
-                  <div class="mb-2">
-                    <span class="badge badge-pill badge-primary">{{ $order->postedBids->count() }} bids</span>
-                  </div>
-                  @endif
-
                   <p>
                   {{ $order->description }}
                   </p>
-                  
+
                   @if (Auth::id() != $order->user->id && Auth::user()->hasNoBids($order->postedBids) && $order->postedBids->count() < 10)
                   <button class="btn btn-sm btn-success float-right bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
                   @endif
-                  
+
                 </div>
+
               </div>
             </div>
           

@@ -18,7 +18,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="float-right">
-                  <small>{{ $order->created_at }}</small>
+                  <small>{{ diffForHumans($order->created_at) }}</small>
                 </div>
 
                 <div class="mt-1">
@@ -48,19 +48,40 @@
                 @foreach ($order->bids as $bid)
                 <div class="card mt-1 offset-md-2">
                   <div class="card-body">
-                    <div>
-                      {{ $bid->user->name }}
-                      @if ($bid->status == 'accepted')
-                      <span class="badge badge-pill badge-warning">accepted</span>
-                      @endif
 
-                      @if ($bid->status == 'no_show')
-                      <span class="badge badge-pill badge-danger">no show</span>
-                      @endif
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="float-right">
+                        <small>{{ diffForHumans($bid->created_at) }}</small>
+                        </div>
+                      </div>
+                    </div>
 
-                      @if ($bid->status == 'fulfilled')
-                      <span class="badge badge-pill badge-success">fulfilled</span>
-                      @endif
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div>
+                          <div class="d-flex flex-row mt-2">
+                            <div>
+                              <img src="{{ $bid->user->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ $bid->user->name }}">
+                            </div>
+
+                            <div class="pl-2">
+                              <strong>{{ $bid->user->name }}</strong>
+                              @if ($bid->status == 'accepted')
+                              <span class="badge badge-pill badge-warning">accepted</span>
+                              @endif
+
+                              @if ($bid->status == 'no_show')
+                              <span class="badge badge-pill badge-danger">no show</span>
+                              @endif
+
+                              @if ($bid->status == 'fulfilled')
+                              <span class="badge badge-pill badge-success">fulfilled</span>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="mt-2">

@@ -18,7 +18,7 @@
         <div class="card mt-1">
           <div class="card-body">
             <div class="float-right">
-              <small>{{ $bid->order->created_at }}</small>
+              <small>{{ diffForHumans($bid->order->created_at) }}</small>
             </div>
 
             <div class="mt-1">
@@ -42,32 +42,57 @@
               </h6>
             </div>
 
-            <hr>
-
-            <div>
-              <strong>{{ $bid->order->user->name }}</strong>
+            <div class="d-flex flex-row mt-1">
+              <div>
+                <img src="{{ $bid->order->user->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ $bid->order->user->name }}">
+              </div>
+              <div class="pl-2 pt-4">
+                <strong>{{ $bid->order->user->name }}</strong>
+              </div>
             </div>
 
-            <div>
+            <div class="mt-1">
               {{ $bid->order->description }}
             </div>
-
-            <hr>
-
-            <div>
-              <strong>Service Fee: </strong> {{ money($bid->service_fee) }}
-            </div>
-
-            <div class="py-1">
-              {{ $bid->notes }}
-            </div>
-            
-            @if ($bid->status == 'posted' || $bid->status == 'accepted')
-            <button class="btn btn-sm btn-danger float-right" data-id="{{ $bid->id }}" id="show-bid-cancel-modal">Cancel</button>
-            @endif
-
           </div>
         </div>
+
+        <div class="card offset-md-2 mt-1">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="float-right">
+                  <small>{{ diffForHumans($bid->created_at) }}</small>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div class="d-flex flex-row mt-2">
+                  <div>
+                    <img src="{{ $bid->user->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ $bid->user->name }}">
+                  </div>
+
+                  <div class="pl-2">
+                    <div>
+                      <strong>Service Fee: </strong> {{ money($bid->service_fee) }}
+                    </div>
+
+                    <div class="py-1">
+                      {{ $bid->notes }}
+                    </div>
+
+                    @if ($bid->status == 'posted' || $bid->status == 'accepted')
+                    <button class="btn btn-sm btn-danger float-right" data-id="{{ $bid->id }}" id="show-bid-cancel-modal">Cancel</button>
+                    @endif
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         @endforeach
       </div>
       @else
