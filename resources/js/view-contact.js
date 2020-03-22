@@ -23,7 +23,7 @@ $('.view-contact').click(function() {
 			.prop('href', `tel:+${phone_number}`)
 			.text(phone_number);
 		$('#messenger-id')
-			.prop('href', `https://me.me/${messenger_id}`)
+			.prop('href', `https://m.me/${messenger_id}`)
 			.text(messenger_id);
 	});
 });
