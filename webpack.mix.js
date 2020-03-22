@@ -18,4 +18,5 @@ mix.react("resources/js/app.js", "public/js").sass(
 
 mix.js("resources/js/orders-feed.js", "public/js")
 	.js("resources/js/bids.js", "public/js")
+	.js("resources/js/facebook-login.js", "public/js")
 	.version();

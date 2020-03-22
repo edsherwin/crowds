@@ -26,4 +26,8 @@ $(function() {
     if ($('.bid-modal-error').length) {
         $("#bid-modal").modal();
     }
+
+    const setup_modal = parseInt($('#setup_step').val());
+    $(`#user-setup-modal-${setup_modal}`).modal();
+    
 });

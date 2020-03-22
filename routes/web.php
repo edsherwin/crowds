@@ -38,4 +38,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/notifications', 'NotificationsController@index');
     Route::patch('/notifications', 'NotificationsController@update');
+
+    Route::patch('/setup/step-one', 'UserController@completeSetupStepOne');
+    Route::patch('/setup/step-two', 'UserController@completeSetupStepTwo');
+    Route::patch('/setup/step-three', 'UserController@completeSetupStepThree');
+
+    Route::patch('/setup/back', 'UserController@previousSetupStep');
 });

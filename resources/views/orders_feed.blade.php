@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@section('head_scripts')
+<script>
+(function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+@endsection
+
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
@@ -8,7 +20,9 @@
     </div>
   </div>
 
-  @if (Auth::user()->barangay)
+  <input type="hidden" id="setup_step" value="{{ Auth::user()->setup_step }}">
+
+  @if (Auth::user()->setup_step == 3)
   <div class="row justify-content-center">
 	<div class="col-md-4 mt-3">
 		@include('partials.alert')
@@ -91,6 +105,210 @@
 
 </div>
 
+@if (Auth::user()->setup_step == 0)
+<div class="modal" id="user-setup-modal-0" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Step 1: Where do you live?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form action="/setup/step-one" method="POST">
+        @method('PATCH')
+        @csrf
+        @honeypot
+        <div class="modal-body">
+          
+          <div class="form-group row">
+              <label for="province" class="col-md-4 col-form-label text-md-right">{{ __('Province') }}</label>
+
+              <div class="col-md-6">
+                  <select name="province" id="province" class="form-control @error('province') is-invalid @enderror">
+                      @foreach($provinces as $province)
+                      <option value="{{ $province->id }}">{{ $province->name }}</option>
+                      @endforeach
+                  </select>
+
+                  @error('province')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
+
+              <div class="col-md-6">
+                  <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
+                      @foreach($cities as $city)
+                      <option value="{{ $city->id }}">{{ $city->name }}</option>
+                      @endforeach
+                  </select>
+
+                  @error('city')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="barangay" class="col-md-4 col-form-label text-md-right">{{ __('Barangay') }}</label>
+
+              <div class="col-md-6">
+                  <select name="barangay" id="barangay" class="form-control @error('barangay') is-invalid @enderror">
+                      @foreach($barangays as $brgy)
+                      <option value="{{ $brgy->id }}" {{ isSelected($brgy->id, Auth::user()->barangay_id) }}>{{ $brgy->name }}</option>
+                      @endforeach
+                  </select>
+
+                  @error('barangay')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+
+              <div class="col-md-6">
+                  <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address', Auth::user()->detail->address) }}" required autocomplete="off">
+
+                  @error('address')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary">Next</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+@endif
+
+@if (Auth::user()->setup_step == 1)
+<div class="modal" id="user-setup-modal-1" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Step 2: Connect Facebook Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">
+        Your Facebook account will be used to validate your identity. Your profile picture will be used for your posts.
+        </div>
+      
+        <div class="row justify-content-center">
+         
+          <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true" data-scope="public_profile,email" data-onlogin="checkLoginState();"></div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <form action="/setup/back" method="POST">
+          @method('PATCH')
+          @csrf
+          @honeypot
+          <button class="btn btn-secondary">Back</button>
+        </form>
+
+        <form action="/setup/step-two" method="POST" id="step-two-form">
+          @method('PATCH')
+          @csrf
+          @honeypot
+          <input type="hidden" name="_fb_profile_pic" id="_fb_profile_pic">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
+@if (Auth::user()->setup_step == 2)
+<div class="modal" id="user-setup-modal-2" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Step 3: How do we contact you?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">
+          Your phone number or your Facebook Messenger ID will be used to facilitate communication between users. This information will only be available to both parties once a request has been accepted.
+        </div>
+        
+        <form action="/setup/step-three" method="POST" id="user-contact-form">
+          @method('PATCH')
+          @csrf
+          @honeypot
+          <div class="form-group row">
+              <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+
+              <div class="col-md-6">
+                  <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number', Auth::user()->detail->phone_number) }}" autocomplete="off">
+
+                  @error('phone_number')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="messenger_id" class="col-md-4 col-form-label text-md-right">{{ __('Messenger ID') }}</label>
+
+              <div class="col-md-6">
+                  <input id="messenger_id" type="text" class="form-control @error('messenger_id') is-invalid @enderror" name="messenger_id" value="{{ old('messenger_id', Auth::user()->detail->messenger_id) }}" autocomplete="off">
+
+                  @error('messenger_id')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        
+        <form action="/setup/back" method="POST">
+          @method('PATCH')
+          @csrf
+          @honeypot
+          <button class="btn btn-secondary">Back</button>
+        </form>
+
+        <button class="btn btn-primary" form="user-contact-form">Finish Setup</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
+@if (Auth::user()->setup_step == 3)
 <div class="modal fade" id="bid-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
 
@@ -183,10 +401,12 @@
 
   </div>
 </div>
+@endif
 @endsection
 
 @section('foot_scripts')
 <script src="{{ mix('js/orders-feed.js') }}"></script>
+<script src="{{ mix('js/facebook-login.js') }}"></script>
 @endsection
 
 
