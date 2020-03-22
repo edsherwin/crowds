@@ -14,7 +14,7 @@ class AddBarangayIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('barangay_id')->after('photo');
+            $table->bigInteger('barangay_id')->nullable()->after('photo');
         });
     }
 
