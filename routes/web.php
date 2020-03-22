@@ -44,4 +44,6 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/setup/step-three', 'UserController@completeSetupStepThree');
 
     Route::patch('/setup/back', 'UserController@previousSetupStep');
+
+    Route::get('/user/{user}', 'UserController@show');
 });

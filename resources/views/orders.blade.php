@@ -104,7 +104,7 @@
                     @endif
 
                     @if ($bid->status == 'accepted')
-                    <div>
+                    <div class="mt-2">
                       <div class="float-right">
                         <form action="/bid/{{ $bid->id }}/fulfilled" method="POST">
                           @method('PATCH')
@@ -124,9 +124,14 @@
                           <button class="btn btn-sm btn-danger mr-2">No show</button>
                         </form>
                       </div>
+
+                      <div class="float-right">
+                        <button class="btn btn-sm btn-secondary mr-2 view-contact" data-userid="{{ $bid->user->id }}" type="button">
+                          Contact
+                        </button>
+                      </div>
                     </div>
                     @endif
-
                   </div>
                 </div>
                 @endforeach
@@ -149,4 +154,10 @@
     </div>
   </div>
 </div>
+
+@include('partials.contact-modal')
+@endsection
+
+@section('foot_scripts')
+<script src="{{ mix('js/view-contact.js') }}" defer></script>
 @endsection

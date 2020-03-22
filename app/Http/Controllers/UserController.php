@@ -7,6 +7,7 @@ use App\Http\Requests\ValidateUserAddress;
 use App\Http\Requests\ValidateUserPhoto;
 use App\Http\Requests\ValidateUserContactInfo;
 use Auth;
+use App\User;
 
 class UserController extends Controller
 {
@@ -55,5 +56,11 @@ class UserController extends Controller
     		Auth::user()->decrement('setup_step');
     	}
     	return back();
+    }
+
+
+    public function show(User $user) {
+
+        return $user->detail;
     }
 }

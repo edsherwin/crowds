@@ -54,6 +54,14 @@
             <div class="mt-1">
               {{ $bid->order->description }}
             </div>
+            
+            @if ($bid->status == 'accepted')
+            <div class="mt-2">
+              <button class="btn btn-sm btn-secondary mr-2 float-right view-contact" data-userid="{{ $bid->order->user_id }}" type="button">
+                Contact
+              </button>
+            </div>
+            @endif
           </div>
         </div>
 
@@ -82,7 +90,7 @@
                     <div class="py-1">
                       {{ $bid->notes }}
                     </div>
-
+                
                     @if ($bid->status == 'posted' || $bid->status == 'accepted')
                     <button class="btn btn-sm btn-danger float-right" data-id="{{ $bid->id }}" id="show-bid-cancel-modal">Cancel</button>
                     @endif
@@ -142,8 +150,12 @@
 
   </div>
 </div>
+
+@include('partials.contact-modal')
+
 @endsection
 
 @section('foot_scripts')
 <script src="{{ mix('js/bids.js') }}"></script>
+<script src="{{ mix('js/view-contact.js') }}" defer></script>
 @endsection
