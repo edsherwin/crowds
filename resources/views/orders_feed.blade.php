@@ -9,6 +9,37 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '568991763714607',
+    cookie     : true,
+    xfbml      : true,
+    version    : 'v6.0'
+  });
+    
+  FB.AppEvents.logPageView();  
+};
+
+
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') { 
+      FB.api(
+        '/me/picture',
+        'GET',
+        {"redirect":"false", "type": "large"},
+        function(response) {
+          if (response.data) {
+            $('#_fb_profile_pic').val(response.data.url);
+            $('#step-two-form').trigger('submit');
+          }
+        }
+      );
+    }
+  });
+}
 </script>
 @endsection
 
@@ -24,41 +55,41 @@
 
   @if (Auth::user()->setup_step == 3)
   <div class="row justify-content-center">
-	<div class="col-md-4 mt-3">
-		@include('partials.alert')
+  <div class="col-md-4 mt-3">
+    @include('partials.alert')
     
     
-		<form method="POST" action="/order/create">
-			@csrf
+    <form method="POST" action="/order/create">
+      @csrf
       @honeypot
-			<div class="form-group">
-			    <label for="description">What do you need?</label>
-			    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3" placeholder="12 eggs, 1 loaf bread, 1 fresh milk"></textarea>
+      <div class="form-group">
+          <label for="description">What do you need?</label>
+          <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3" placeholder="12 eggs, 1 loaf bread, 1 fresh milk"></textarea>
 
-				@error('description')
-			    <span class="invalid-feedback" role="alert">
-			        <strong>{{ $message }}</strong>
-			    </span>
-				@enderror
-			</div>
-			<button class="btn btn-primary float-right">Post</button>
-		</form>
-	</div>
+        @error('description')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+        @enderror
+      </div>
+      <button class="btn btn-primary float-right">Post</button>
+    </form>
+  </div>
   </div>
 
   <div class="row justify-content-center">
-  	<div class="col-md-4 mt-5">
+    <div class="col-md-4 mt-5">
       @if (count($orders) > 0)
         @foreach ($orders as $order)
           <div class="my-3">
-          	<div class="card">
-          		<div class="card-body">
-          			<div class="float-right">
-          				<small>{{ $order->created_at }}</small>
-          			</div>
+            <div class="card">
+              <div class="card-body">
+                <div class="float-right">
+                  <small>{{ $order->created_at }}</small>
+                </div>
 
-          			<div class="mt-1">
-          				<h6>{{ $order->user->name }}</h6>
+                <div class="mt-1">
+                  <h6>{{ $order->user->name }}</h6>
                   
                   @if ($order->postedBids->count())
                   <div class="mb-2">
@@ -66,20 +97,20 @@
                   </div>
                   @endif
 
-          				<p>
-          				{{ $order->description }}
-          				</p>
+                  <p>
+                  {{ $order->description }}
+                  </p>
                   
                   @if (Auth::id() != $order->user->id && Auth::user()->hasNoBids($order->postedBids) && $order->postedBids->count() < 10)
-          				<button class="btn btn-sm btn-success float-right bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
+                  <button class="btn btn-sm btn-success float-right bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
                   @endif
                   
-          			</div>
-          		</div>
-          	</div>
+                </div>
+              </div>
+            </div>
           
           </div>
-      	@endforeach
+        @endforeach
 
         <div>
         {{ $orders->links() }}
@@ -87,11 +118,11 @@
       @endif
 
       @if (count($orders) == 0)
-    	<div class="alert alert-info">
-    		No orders in your neighborhood yet.
-    	</div>
+      <div class="alert alert-info">
+        No orders in your neighborhood yet.
+      </div>
       @endif
-  	</div>
+    </div>
   </div>
   @else
   <div class="row justify-content-center">
@@ -406,7 +437,4 @@
 
 @section('foot_scripts')
 <script src="{{ mix('js/orders-feed.js') }}"></script>
-<script src="{{ mix('js/facebook-login.js') }}"></script>
 @endsection
-
-
