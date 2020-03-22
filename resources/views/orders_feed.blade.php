@@ -4,14 +4,16 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-4">
-      <h5>Orders Feed (Brgy. {{ Auth::user()->barangay->name }})</h5>
+      <h5>Orders Feed @if (Auth::user()->barangay) (Brgy. {{ Auth::user()->barangay->name }}) @endif</h5>
     </div>
   </div>
 
+  @if (Auth::user()->barangay)
   <div class="row justify-content-center">
 	<div class="col-md-4 mt-3">
 		@include('partials.alert')
-
+    
+    
 		<form method="POST" action="/order/create">
 			@csrf
       @honeypot
@@ -27,7 +29,6 @@
 			</div>
 			<button class="btn btn-primary float-right">Post</button>
 		</form>
-
 	</div>
   </div>
 
@@ -78,6 +79,16 @@
       @endif
   	</div>
   </div>
+  @else
+  <div class="row justify-content-center">
+    <div class="col-md-4 mt-3">
+      <div class="alert alert-warning">
+      You need to setup your account first before you can start posting or bidding.
+      </div>
+    </div>
+  </div>
+  @endif
+
 </div>
 
 <div class="modal fade" id="bid-modal" tabindex="-1" role="dialog">
