@@ -1,4 +1,4 @@
-$('#show-bid-cancel-modal').click(function() {
+$('.show-bid-cancel-modal').click(function() {
 	const self = $(this);
 	const id = self.data('id');
 

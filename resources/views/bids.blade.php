@@ -92,7 +92,7 @@
                     </div>
                 
                     @if ($bid->status == 'posted' || $bid->status == 'accepted')
-                    <button class="btn btn-sm btn-danger float-right" data-id="{{ $bid->id }}" id="show-bid-cancel-modal">Cancel</button>
+                    <button class="btn btn-sm btn-danger float-right show-bid-cancel-modal" data-id="{{ $bid->id }}">Cancel</button>
                     @endif
                   </div>
                 </div>
