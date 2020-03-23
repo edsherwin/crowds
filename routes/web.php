@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/setup/back', 'UserController@previousSetupStep');
 
     Route::get('/user/{user}', 'UserController@show');
+    Route::get('/user/{user}/reputation', 'UserReputationController@show');
+
 
     Route::get('/province/{province}', 'ProvinceController@show');
     Route::get('/city/{city}', 'CityController@show');

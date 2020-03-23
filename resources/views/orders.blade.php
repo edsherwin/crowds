@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="pl-2">
-                              <strong>{{ $bid->user->name }}</strong>
+                              <a href="/user/{{ $bid->user_id }}/reputation">{{ $bid->user->name }}</a>
                               @if ($bid->status == 'accepted')
                               <span class="badge badge-pill badge-warning">accepted</span>
                               @endif

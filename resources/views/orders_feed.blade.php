@@ -94,8 +94,7 @@ function checkLoginState() {
                     <img src="{{ $order->user->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ $order->user->name }}">
                   </div>
                   <div class="pl-2">
-                    <strong>{{ $order->user->name }}</strong
-                    >
+                    <a href="/user/{{ $order->user_id }}/reputation">{{ $order->user->name }}</a>
                     <div>
                       @if ($order->postedBids->count())
                       <span class="badge badge-pill badge-primary">{{ $order->postedBids->count() }} bids</span>

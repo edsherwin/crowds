@@ -69,4 +69,8 @@ class User extends Authenticatable
         return $this->hasMany(Bid::class)
             ->whereRaw("DATE(created_at) = ?", [now()->toDateString()]);
     }
+
+    public function bids() {
+        return $this->hasMany(Bid::class);
+    }
 }

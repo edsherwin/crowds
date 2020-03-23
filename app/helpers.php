@@ -18,3 +18,12 @@ function isSelected($current_value, $selected_value){
 function diffForHumans($datetime) {
 	return Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->diffForHumans();
 }
+
+// TODO: maybe this fits somewhere else?
+function filterByStatus($data, $status) {
+	$filtered = collect($data->toArray())->filter(function ($value, $key) use ($status) {
+    	info($value['status'] . " : " . $status);
+    	return $value['status'] == $status;
+	});
+	return $filtered->count();
+}

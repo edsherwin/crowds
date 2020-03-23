@@ -46,8 +46,8 @@
               <div>
                 <img src="{{ $bid->order->user->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ $bid->order->user->name }}">
               </div>
-              <div class="pl-2 pt-4">
-                <strong>{{ $bid->order->user->name }}</strong>
+              <div class="pl-2">
+                <a href="/user/{{ $bid->order->user_id }}/reputation">{{ $bid->order->user->name }}</a>
               </div>
             </div>
 
