@@ -18,10 +18,6 @@ class UserController extends Controller
     		'setup_step' => 1
     	]);
 
-    	Auth::user()->detail->update([
-    		'address' => request('address')
-    	]);
-
     	return back();
     }
 

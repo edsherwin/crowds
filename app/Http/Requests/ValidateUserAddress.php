@@ -24,8 +24,7 @@ class ValidateUserAddress extends FormRequest
     public function rules()
     {
         return [
-            'barangay' => 'required|exists:barangays,id',
-            'address' => 'required|string|max:160'
+            'barangay' => 'required|exists:barangays,id'
         ];
     }
 }

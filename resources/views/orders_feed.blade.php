@@ -216,20 +216,6 @@ function checkLoginState() {
               </div>
           </div>
 
-          <div class="form-group row">
-              <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
-
-              <div class="col-md-6">
-                  <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address', Auth::user()->detail->address) }}" required autocomplete="off">
-
-                  @error('address')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-              </div>
-          </div>
-
         </div>
         <div class="modal-footer">
           <button class="btn btn-primary">Next</button>
