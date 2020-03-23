@@ -1,8 +1,13 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
-@import 'variables';
+//@import "variables";
+// Bootswatch Variables for your chosen theme
+@import "node_modules/bootswatch/dist/flatly/variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+
+// Bootswatch theme main CSS files
+@import "node_modules/bootswatch/dist/flatly/bootswatch";
