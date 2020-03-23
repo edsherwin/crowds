@@ -16,10 +16,8 @@ class OrdersFeedController extends Controller
     		->latest()
     		->paginate(10);
     	
-		$provinces = DB::table('provinces')->where('id', 1)->get();
-		$cities = DB::table('cities')->where('province_id', 1)->get();
-		$barangays = DB::table('barangays')->where('city_id', 1)->get();
-
-    	return view('orders_feed', compact('orders', 'provinces', 'cities', 'barangays'));
+		$provinces = DB::table('provinces')->get();
+		
+    	return view('orders_feed', compact('orders', 'provinces'));
     }
 }

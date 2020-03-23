@@ -167,6 +167,7 @@ function checkLoginState() {
 
               <div class="col-md-6">
                   <select name="province" id="province" class="form-control @error('province') is-invalid @enderror">
+                      <option value="">Select province</option>
                       @foreach($provinces as $province)
                       <option value="{{ $province->id }}">{{ $province->name }}</option>
                       @endforeach
@@ -185,9 +186,7 @@ function checkLoginState() {
 
               <div class="col-md-6">
                   <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
-                      @foreach($cities as $city)
-                      <option value="{{ $city->id }}">{{ $city->name }}</option>
-                      @endforeach
+                    
                   </select>
 
                   @error('city')
@@ -203,9 +202,7 @@ function checkLoginState() {
 
               <div class="col-md-6">
                   <select name="barangay" id="barangay" class="form-control @error('barangay') is-invalid @enderror">
-                      @foreach($barangays as $brgy)
-                      <option value="{{ $brgy->id }}" {{ isSelected($brgy->id, Auth::user()->barangay_id) }}>{{ $brgy->name }}</option>
-                      @endforeach
+                      
                   </select>
 
                   @error('barangay')
