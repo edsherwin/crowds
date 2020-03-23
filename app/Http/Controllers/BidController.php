@@ -71,6 +71,9 @@ class BidController extends Controller
     public function index() {
 
         $bids = Bid::byUser()->with(['order', 'order.user'])->latest()->paginate(10);
+
+        session()->flash('alert', ['type' => 'info', 'text' => "Once your bid is accepted, click on the contact button and contact the person first before proceeding with the service."]);
+
         return view('bids', compact('bids'));
     }
 
