@@ -65,6 +65,8 @@ class Kernel extends HttpKernel
 
         'limit.order' => \App\Http\Middleware\LimitOrder::class,
         'limit.bid' => \App\Http\Middleware\LimitBid::class,
+
+        'setup.complete' => \App\Http\Middleware\PromptUserToCompleteSetup::class,
     ];
 
     /**

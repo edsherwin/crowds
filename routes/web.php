@@ -21,9 +21,26 @@ Route::get('/privacy', function() {
 
 Auth::routes(['reset' => false]);
 
+
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'OrdersFeedController@index');
+
+    Route::patch('/setup/step-one', 'UserController@completeSetupStepOne');
+    Route::patch('/setup/step-two', 'UserController@completeSetupStepTwo');
+    Route::patch('/setup/step-three', 'UserController@completeSetupStepThree');
+
+    Route::patch('/setup/back', 'UserController@previousSetupStep');
+
+    Route::get('/province/{province}', 'ProvinceController@show');
+    Route::get('/city/{city}', 'CityController@show');
+});
+
+Route::middleware(['auth', 'setup.complete'])->group(function () {
+
+    Route::get('/user/{user}', 'UserController@show');
+    Route::get('/user/{user}/reputation', 'UserReputationController@show');
 
     Route::post('/order/create', 'OrdersController@create')->middleware('limit.order');
 
@@ -43,16 +60,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', 'NotificationsController@index');
     Route::patch('/notifications', 'NotificationsController@update');
 
-    Route::patch('/setup/step-one', 'UserController@completeSetupStepOne');
-    Route::patch('/setup/step-two', 'UserController@completeSetupStepTwo');
-    Route::patch('/setup/step-three', 'UserController@completeSetupStepThree');
-
-    Route::patch('/setup/back', 'UserController@previousSetupStep');
-
-    Route::get('/user/{user}', 'UserController@show');
-    Route::get('/user/{user}/reputation', 'UserReputationController@show');
-
-
-    Route::get('/province/{province}', 'ProvinceController@show');
-    Route::get('/city/{city}', 'CityController@show');
 });
+
