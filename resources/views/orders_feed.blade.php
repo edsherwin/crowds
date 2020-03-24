@@ -97,7 +97,7 @@ function checkLoginState() {
                     <a href="/user/{{ $order->user_id }}/reputation">{{ $order->user->name }}</a>
                     <div>
                       @if ($order->postedBids->count())
-                      <span class="badge badge-pill badge-primary">{{ $order->postedBids->count() }} bids</span>
+                      <span class="badge badge-pill badge-primary">{{ $order->postedBids->count() }} {{ Str::plural('bid', $order->postedBids->count()) }}</span>
                       @endif
                     </div>
                   </div>

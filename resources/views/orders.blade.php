@@ -30,7 +30,7 @@
                       <span class="badge badge-pill badge-success">fulfilled</span>
                     @else
                       @if ($order->bids->count())
-                      <span class="badge badge-pill badge-primary">{{ $order->bids->count() }} bids</span>
+                      <span class="badge badge-pill badge-primary">{{ $order->bids->count() }} {{ Str::plural('bid', $order->bids->count()) }}</span>
                       @endif
                     @endif
                   </h6>
