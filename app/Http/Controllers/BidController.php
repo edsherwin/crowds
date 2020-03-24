@@ -29,10 +29,10 @@ class BidController extends Controller
             return back()
                 ->with('alert', ['type' => 'danger', 'text' => $e->getMessage()]);
         }
-    	
+
         return back()
             ->with('alert', ['type' => 'success', 'text' => "Bid created! We'll notify you once this gets accepted."]);
-    	
+
     }
 
     public function accept(Bid $bid) {
@@ -79,9 +79,10 @@ class BidController extends Controller
 
     public function cancel(Bid $bid) {
 
-        $bid->cancel(request('cancel_reason'))->save();
+        $cancel_reason = request('cancel_reason');
+        $bid->cancel($cancel_reason)->save();
         $order_id = $bid->order->id;
-            Order::find($order_id)->user->notify(new BidCancelled($order_id, Auth::user()->name));
+            Order::find($order_id)->user->notify(new BidCancelled($order_id, Auth::user()->name, $cancel_reason));
 
         return back()
             ->with('alert', ['type' => 'success', 'text' => "Your bid has been cancelled."]);

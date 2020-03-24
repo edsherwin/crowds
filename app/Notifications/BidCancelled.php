@@ -13,16 +13,18 @@ class BidCancelled extends Notification
 
     private $order_id;
     private $bidder_name;
+    private $cancel_reason;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($order_id, $bidder_name)
+    public function __construct($order_id, $bidder_name, $cancel_reason)
     {
         $this->order_id = $order_id;
         $this->bidder_name = $bidder_name;
+        $this->cancel_reason = $cancel_reason;
     }
 
     /**
@@ -47,6 +49,7 @@ class BidCancelled extends Notification
         return [
             'order_id' => $this->order_id,
             'bidder_name' => $this->bidder_name,
+            'cancel_reason' => $this->cancel_reason,
             'type' => 'bid_cancelled'
         ];
     }

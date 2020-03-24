@@ -10,7 +10,7 @@
 
   <div class="row justify-content-center">
     <div class="col-md-4">
-      
+
       @if (count($unread) > 0)
         <div class="mt-3">
           <form action="/notifications" method="POST">
@@ -35,7 +35,7 @@
                     </p>
                   @elseif ($notification->data['type'] == 'bid_accepted')
                     <p>
-                    Your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> was accepted by <strong>{{ $notification->data['requester_name'] }}</strong>. You can now proceed with fulfilling the request.
+                    Your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> was accepted by <strong>{{ $notification->data['requester_name'] }}</strong>. You may contact them by clicking on the <strong>contact</strong> button to ensure that they're legit. You can also check their previous order history to see if they have a good reputation.
                     </p>
                   @elseif ($notification->data['type'] == 'bid_no_show')
                     <p>
@@ -43,11 +43,11 @@
                     </p>
                   @elseif ($notification->data['type'] == 'bid_fulfilled')
                     <p>
-                    <strong>{{ $notification->data['requester_name'] }}</strong> has marked your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> as "fulfilled".  
+                    Congrats! <strong>{{ $notification->data['requester_name'] }}</strong> has marked your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> as "fulfilled".
                     </p>
                   @elseif ($notification->data['type'] == 'bid_cancelled')
                     <p>
-                    {{ $notification->data['bidder_name'] }} cancelled their bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong>
+                    {{ $notification->data['bidder_name'] }} cancelled their bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> because of the following reason: {{ $notification->data['cancel_reason'] }}
                     </p>
                   @endif
                 </div>
