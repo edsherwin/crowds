@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidateUserAddress;
-use App\Http\Requests\ValidateUserPhoto;
+use App\Http\Requests\ValidateFacebookAccount;
 use App\Http\Requests\ValidateUserContactInfo;
 use Auth;
 use App\User;
@@ -21,9 +21,10 @@ class UserController extends Controller
     	return back();
     }
 
-    public function completeSetupStepTwo(ValidateUserPhoto $request) {
+    public function completeSetupStepTwo(ValidateFacebookAccount $request) {
 
     	Auth::user()->update([
+            'facebook_id' => request('_fb_profile_id'),
     		'photo' => request('_fb_profile_pic'),
     		'setup_step' => 2
     	]);

@@ -30,9 +30,10 @@ function checkLoginState() {
         '/me/picture',
         'GET',
         {"redirect":"false", "type": "large"},
-        function(response) {
-          if (response.data) {
-            $('#_fb_profile_pic').val(response.data.url);
+        function(pic_response) {
+          if (pic_response.data) {
+            $('#_fb_profile_id').val(response.authResponse.userID);
+            $('#_fb_profile_pic').val(pic_response.data.url);
             $('#step-two-form').trigger('submit');
           }
         }
@@ -257,6 +258,7 @@ function checkLoginState() {
           @method('PATCH')
           @csrf
           @honeypot
+          <input type="hidden" name="_fb_profile_id" id="_fb_profile_id">
           <input type="hidden" name="_fb_profile_pic" id="_fb_profile_pic">
         </form>
       </div>

@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Auth;
 
-class ValidateUserPhoto extends FormRequest
+class ValidateFacebookAccount extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +25,7 @@ class ValidateUserPhoto extends FormRequest
     public function rules()
     {
         return [
+            '_fb_profile_id' => 'required|numeric|digits_between:17,30|unique:users,facebook_id,' . Auth::id(),
             '_fb_profile_pic' => 'required|url'
         ];
     }
