@@ -29,7 +29,9 @@ class OrdersController extends Controller
     		->latest()
     		->paginate(10);
 
-        session()->flash('alert', ['type' => 'info', 'text' => "Once you've accepted a bid, click on the contact button and contact the person first to make sure they're legit. Click the no show button if you can't reach them."]);
+        if (!session()->has('alert')) {
+            session()->flash('alert', ['type' => 'info', 'text' => "Once you've accepted a bid, click on the contact button and contact the person first to make sure they're legit. Click the no show button if you can't reach them."]);
+        }
 
     	return view('orders', compact('orders'));
     }
