@@ -28,7 +28,7 @@ class ValidateBid extends FormRequest
         return [
             'order_id' => 'required|numeric|exists:orders,id',
             'service_fee' => 'required|numeric|between:10,500', 
-            'notes' => 'required|string'
+            'notes' => 'required|string|max:140'
         ];
     }
 }
