@@ -27,3 +27,7 @@ function filterByStatus($data, $status) {
 	});
 	return $filtered->count();
 }
+
+function friendlyDatetime($datetime) {
+    return Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->format('D, M n, Y [h:i A]');
+}

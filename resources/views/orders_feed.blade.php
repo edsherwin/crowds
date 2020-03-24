@@ -109,7 +109,7 @@ function checkLoginState() {
                   </p>
 
                   @if (Auth::id() != $order->user->id && Auth::user()->hasNoBids($order->postedBids) && $order->postedBids->count() < 10)
-                  <button class="btn btn-sm btn-success float-right bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-address="{{ $order->user->detail->address }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}">Bid</button>
+                  <button class="btn btn-sm btn-success float-right bid" data-id="{{ $order->id }}" data-recipient="{{ $order->user->name }}" data-description="{{ $order->description }}" data-datetime="{{ $order->created_at }}" data-friendlydatetime="{{ friendlyDatetime($order->created_at) }}">Bid</button>
                   @endif
 
                 </div>
@@ -348,7 +348,6 @@ function checkLoginState() {
                 @honeypot
                 <input type="hidden" name="order_id" id="order_id" value="{{ old('order_id') }}">
                 <input type="hidden" name="order_recipient" id="order_recipient" value="{{ old('order_recipient') }}">
-                <input type="hidden" name="order_address" id="order_address" value="{{ old('order_address') }}">
                 <input type="hidden" name="order_description" id="order_description" value="{{ old('order_description') }}">
                 <input type="hidden" name="order_created_at" id="order_created_at" value="{{ old('order_created_at') }}">
 
@@ -360,15 +359,6 @@ function checkLoginState() {
                         <div class="col-md-8" id="order-recipient">
                         {{ old('order_recipient') }}
                       </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4 mt-2">
-                            <strong>Address</strong>
-                        </div>
-                        <div class="col-md-8 mt-2" id="order-address">
-                        {{ old('order_address') }}
-                        </div>
                     </div>
 
                     <div class="row">
