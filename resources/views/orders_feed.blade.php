@@ -375,7 +375,7 @@ function checkLoginState() {
                             <strong>Posted at</strong>
                         </div>
                         <div class="col-md-8 mt-2 mb-3" id="order-datetime">
-                        {{ old('order_created_at') }}
+                        {{ friendlyDatetime(old('order_created_at')) }}
                         </div>
                     </div>
 

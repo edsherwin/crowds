@@ -29,5 +29,7 @@ function filterByStatus($data, $status) {
 }
 
 function friendlyDatetime($datetime) {
-    return Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->format('D, M n, Y [h:i A]');
+    if ($datetime) {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->format('D, M n, Y [h:i A]');
+    }
 }
