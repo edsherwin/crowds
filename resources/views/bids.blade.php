@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <div class="card offset-md-2 mt-1">
+        <div class="card offset-1 mt-1">
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
@@ -90,12 +90,15 @@
                     <div class="py-1">
                       {{ $bid->notes }}
                     </div>
-                
-                    @if ($bid->status == 'posted' || $bid->status == 'accepted')
-                    <button class="btn btn-sm btn-danger float-right show-bid-cancel-modal" data-id="{{ $bid->id }}">Cancel</button>
-                    @endif
                   </div>
                 </div>
+
+                @if ($bid->status == 'posted' || $bid->status == 'accepted')
+                <div>
+                  <button class="btn btn-sm btn-danger float-right show-bid-cancel-modal" data-id="{{ $bid->id }}">Cancel</button>
+                </div>  
+                @endif
+               
               </div>
             </div>
           </div>
