@@ -93,11 +93,15 @@ class Bid extends Model
 
     public static function submit($data) {
         $order = Order::find($data['order_id']);
+
+        if ($order->user->barangay_id != Auth::user()->barangay_id) {
+            throw new \Exception("You can only submit a bid to orders posted in the same barangay as you.");
+        }
         
-        if (Auth::user()->hasNoBids($order->bids)) {
-            self::create($data);
-        } else {
+        if (Auth::user()->hasBids($order->bids)) {
             throw new \Exception("You can no longer submit a bid to an order which you've previously cancelled.");
         }
+
+        self::create($data);
     }
 }

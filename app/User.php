@@ -57,6 +57,12 @@ class User extends Authenticatable
     }
 
 
+    public function hasBids($bids) {
+        $user_ids = $bids->pluck('user_id')->toArray();
+        return in_array($this->id, $user_ids);
+    }
+
+
     public function barangay() {
         return $this->belongsTo(Barangay::class);
     }
