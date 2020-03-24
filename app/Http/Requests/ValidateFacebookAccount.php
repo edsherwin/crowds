@@ -25,7 +25,7 @@ class ValidateFacebookAccount extends FormRequest
     public function rules()
     {
         return [
-            '_fb_profile_id' => 'required|numeric|digits_between:17,30|unique:users,facebook_id,' . Auth::id(),
+            '_fb_profile_id' => 'required|numeric',
             '_fb_profile_pic' => 'required|url'
         ];
     }
