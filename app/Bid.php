@@ -56,6 +56,9 @@ class Bid extends Model
 
 
     public function accept() {
+        // note: kinda fishy. might be better off putting the condition somewhere else?
+        // also, the API doesn't look quite right. might be better putting these in the Order model itself?
+        // same with fulfill() and noShow()
     	if ($this->order->user->id == Auth::id()) {
     		$this->status = 'accepted';
     	}
@@ -63,12 +66,17 @@ class Bid extends Model
     }
 
     public function fulfill() {
-        $this->status = 'fulfilled';
+        if ($this->order->user->id == Auth::id()) {
+            $this->status = 'fulfilled';
+            return $this;
+        }
         return $this;
     }
 
     public function noShow() {
-        $this->status = 'no_show';
+        if ($this->order->user->id == Auth::id()) {
+            $this->status = 'no_show';
+        }
         return $this;
     }
 
