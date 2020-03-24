@@ -44,7 +44,7 @@ class BidController extends Controller
         $bid->user->notify(new BidAccepted($order_id, Auth::user()->name));
 
     	return back()
-    		->with('alert', ['type' => 'success', 'text' => "Bid accepted! We notified {$bidder} so they can proceed."]);
+    		->with('alert', ['type' => 'success', 'text' => "Bid accepted! Please contact the bidder by clicking on the <strong>contact</strong> button below so that they know you're legit."]);
     }
 
     public function fulfill(Bid $bid) {
@@ -64,7 +64,7 @@ class BidController extends Controller
         $bid->user->notify(new BidNoShow($order_id, Auth::user()->name));
 
         return back()
-            ->with('alert', ['type' => 'success', 'text' => "Order marked as <strong>no show</strong>"]);
+            ->with('alert', ['type' => 'success', 'text' => "Bid marked as <strong>no show</strong>. This will be reflected on that user's profile."]);
 
     }
 

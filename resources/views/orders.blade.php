@@ -99,7 +99,7 @@
                       @honeypot
                       <input type="hidden" name="_bidder" value="{{ $bid->user->name }}">
                       <input type="hidden" name="_order_id" value="{{ $order->id }}">
-                      <button class="btn btn-sm btn-primary float-right">Accept</button>
+                      <button type="button" class="btn btn-sm btn-primary float-right accept-bid" data-bidder="{{ $bid->user->name }}">Accept</button>
                     </form>
                     @endif
 
@@ -111,7 +111,7 @@
                           @csrf
                           @honeypot
                           <input type="hidden" name="_order_id" value="{{ $order->id }}">
-                          <button class="btn btn-sm btn-success">Fulfilled</button>
+                          <button type="button" class="btn btn-sm btn-success mark-as-fulfilled">Fulfilled</button>
                         </form>
                       </div>
 
@@ -121,7 +121,7 @@
                           @csrf
                           @honeypot
                           <input type="hidden" name="_order_id" value="{{ $order->id }}">
-                          <button class="btn btn-sm btn-danger mr-2">No show</button>
+                          <button type="button" class="btn btn-sm btn-danger mr-2 mark-as-noshow">No show</button>
                         </form>
                       </div>
 
@@ -159,5 +159,6 @@
 @endsection
 
 @section('foot_scripts')
+<script src="{{ mix('js/orders.js') }}" defer></script>
 <script src="{{ mix('js/view-contact.js') }}" defer></script>
 @endsection
