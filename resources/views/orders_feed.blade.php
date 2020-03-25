@@ -54,7 +54,7 @@ function checkLoginState() {
 
   <input type="hidden" id="setup_step" value="{{ Auth::user()->setup_step }}">
 
-  @if (Auth::user()->setup_step == 3)
+  @if (Auth::user()->setup_step == 4)
   <div class="row justify-content-center">
   <div class="col-md-4 mt-3">
     @include('partials.alert')
@@ -272,7 +272,7 @@ function checkLoginState() {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Step 3: How do we contact you?</h5>
+        <h5 class="modal-title">Step 3: How can you be contacted?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -325,7 +325,7 @@ function checkLoginState() {
           <button class="btn btn-secondary">Back</button>
         </form>
 
-        <button class="btn btn-primary" form="user-contact-form">Finish Setup</button>
+        <button class="btn btn-primary" form="user-contact-form">Next</button>
       </div>
     </div>
   </div>
@@ -333,6 +333,57 @@ function checkLoginState() {
 @endif
 
 @if (Auth::user()->setup_step == 3)
+<div class="modal" id="user-setup-modal-3" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Step 4: Notifications</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="alert alert-info">
+          In order to be notified of orders in your Barangay and bids submitted to your orders, you need to be onboarded through the app's Messenger chat bot. Click on the button below to get started.
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            
+            <div class="my-2">
+              <span>Unique Code:</span>
+              <h3 class="mt-1">{{ Auth::user()->unique_id }}</h3>
+            </div>
+
+            <form action="/setup/step-four" method="POST" id="notifications-form">
+              @method('PATCH')
+              @csrf
+              @honeypot
+              <a href="https://m.me/109008434076156" class="btn btn-block btn-success">Visit Facebook Page</a>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        
+        <form action="/setup/back" method="POST">
+          @method('PATCH')
+          @csrf
+          @honeypot
+          <button class="btn btn-secondary">Back</button>
+        </form>
+
+        <button class="btn btn-primary" form="notifications-form">Finish Setup</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
+
+@if (Auth::user()->setup_step == 4)
 <div class="modal fade" id="bid-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
 

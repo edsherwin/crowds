@@ -44,7 +44,12 @@ class UserController extends Controller
     		'setup_step' => 3
     	]);
 
-    	return back()->with('alert', ['type' => 'success', 'text' => "Setup complete! You can now make requests and submit bids."]);
+    	return back();
+    }
+
+
+    public function completeSetupStepFour() {
+        return back()->with('alert', ['type' => 'success', 'text' => "Setup complete! You can now make requests and submit bids."]);
     }
 
 

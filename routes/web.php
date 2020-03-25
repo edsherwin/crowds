@@ -21,8 +21,6 @@ Route::get('/privacy', function() {
 
 Auth::routes(['reset' => false]);
 
-
-
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'OrdersFeedController@index');
@@ -30,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/setup/step-one', 'UserController@completeSetupStepOne');
     Route::patch('/setup/step-two', 'UserController@completeSetupStepTwo');
     Route::patch('/setup/step-three', 'UserController@completeSetupStepThree');
+    Route::patch('/setup/step-four', 'UserController@completeSetupStepFour');
 
     Route::patch('/setup/back', 'UserController@previousSetupStep');
 
@@ -61,4 +60,3 @@ Route::middleware(['auth', 'setup.complete'])->group(function () {
     Route::patch('/notifications', 'NotificationsController@update');
 
 });
-

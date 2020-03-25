@@ -18,7 +18,7 @@ class PromptUserToCompleteSetup
     {
         info (json_encode($request->path()));
 
-        if (Auth::user()->setup_step < 3 && $request->path() != '/') {
+        if (Auth::user()->setup_step < 4 && $request->path() != '/') {
             return redirect('/');
         }
 
