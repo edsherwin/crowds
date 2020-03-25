@@ -4,13 +4,23 @@
 
 use App\Order;
 use Faker\Generator as Faker;
+use App\User;
 use App\UserDetail;
+use App\UserSetting;
 
 $factory->define(Order::class, function (Faker $faker) {
-	$user_detail = factory(UserDetail::class)->create();
+	$user = factory(User::class)->create();
+	factory(UserDetail::class)->create([
+		'user_id' => $user->id
+	]);
+
+	factory(UserSetting::class)->create([
+		'user_id' => $user->id
+	]);
+
     return [
-    	'user_id' => $user_detail->user_id,
-    	'barangay_id' => $user_detail->user->barangay_id,
+    	'user_id' => $user->id,
+    	'barangay_id' => $user->barangay_id,
         'description' => $faker->text,
         'status' => 'posted'
     ];
