@@ -30,4 +30,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+
+    'botman' => [
+        'facebook_token' => env('FACEBOOK_TOKEN'),
+        'facebook_app_secret' => env('FACEBOOK_APP_SECRET'),
+        'facebook_verification' => env('FACEBOOK_VERIFICATION'),
+        'facebook_start_button_payload' => 'Hello'
+    ],
+
 ];
