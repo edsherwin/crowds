@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\UserDetail;
+use App\UserSetting;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -81,6 +82,12 @@ class RegisterController extends Controller
 
         UserDetail::create([
             'user_id' => $user->id
+        ]);
+
+        UserSetting::create([
+            'user_id' => $user->id,
+            'is_orders_notification_enabled' => false,
+            'is_bid_notification_enabled' => false
         ]);
 
         return $user;
