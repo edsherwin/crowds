@@ -87,7 +87,8 @@ class RegisterController extends Controller
         UserSetting::create([
             'user_id' => $user->id,
             'is_orders_notification_enabled' => false,
-            'is_bid_notification_enabled' => false
+            'is_bid_notification_enabled' => false,
+            'is_bid_accepted_notification_enabled' => false
         ]);
 
         return $user;
