@@ -41,7 +41,7 @@ class BidController extends Controller
     	$bid->accept()->save();
 
         $order_id = request('_order_id');
-        $bid->user->notify(new BidAccepted($order_id, Auth::user()->name));
+        $bid->user->notify(new BidAccepted($order_id, Auth::user()->name, Auth::user()->detail->phone_number, Auth::user()->detail->messenger_id));
 
     	return back()
     		->with('alert', ['type' => 'success', 'text' => "Bid accepted! Please contact the bidder by clicking on the <strong>contact</strong> button below so that they know you're legit."]);
