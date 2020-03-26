@@ -26,6 +26,7 @@ $factory->define(User::class, function (Faker $faker) {
         'barangay_id' => rand(1, 59),
         'setup_step' => 4,
         'is_enabled' => true,
+        'unique_id' => Str::random(10),
         'remember_token' => Str::random(10),
     ];
 });
