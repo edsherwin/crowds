@@ -38,4 +38,9 @@ return [
         'facebook_start_button_payload' => 'Hello'
     ],
 
+    'facebook' => [
+        'page-token' => env('FACEBOOK_TOKEN'),
+        'app-secret' => env('FACEBOOK_APP_SECRET')
+    ]
+
 ];

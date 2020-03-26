@@ -16,6 +16,7 @@
         "botman/tinker": "^1.1",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
+        "laravel-notification-channels/facebook": "^0.1.0",
         "laravel/framework": "6.2",
         "laravel/tinker": "^2.0",
         "spatie/laravel-honeypot": "2.0.0"

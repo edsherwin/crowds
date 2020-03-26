@@ -9,6 +9,7 @@ use App\UserDetail;
 use App\Order;
 use App\Barangay;
 use App\Bid;
+use App\UserSetting;
 
 class User extends Authenticatable
 {
@@ -78,5 +79,9 @@ class User extends Authenticatable
 
     public function bids() {
         return $this->hasMany(Bid::class);
+    }
+
+    public function setting() {
+        return $this->hasOne(UserSetting::class);
     }
 }
