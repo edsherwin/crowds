@@ -21,6 +21,7 @@ class OnboardingConversation extends Conversation
 
     protected $order_notification_preference;
     protected $bids_notification_preference;
+    protected $bids_accepted_notification_preference;
 
 
     public function askOrderNotificationPreference() {
@@ -54,6 +55,39 @@ class OnboardingConversation extends Conversation
             function(Answer $answer) {
 
                 $this->bids_notification_preference = $answer->getValue(); 
+                $this->askBidsAcceptedNotificationPreference();
+
+                UserSetting::where('user_id', $this->user->id)
+                    ->update([
+                        'is_bid_notification_enabled' => ($this->bids_notification_preference == 'yes')
+                    ]);
+            }
+        );
+    }
+
+
+    public function askBidsAcceptedNotificationPreference() {
+        info('bids accepted notification..');
+
+        $this->ask(ButtonTemplate::create("Do you want to be notified if your bid to a specific order is accepted?")
+            ->addButton(ElementButton::create("Heck yeah!")->type('postback')->payload('yes'))
+            ->addButton(ElementButton::create('No thanks')->type('postback')->payload('no')),
+
+            function(Answer $answer) {
+
+                $this->bids_accepted_notification_preference = $answer->getValue(); 
+
+                $this->say(GenericTemplate::create()
+                    ->addImageAspectRatio(GenericTemplate::RATIO_SQUARE)
+                    ->addElements([
+                        Element::create('Congrats! The setup is now complete.')
+                            ->subtitle('We will send you notifications via this bot as needed.')
+                            ->image('https://i.imgur.com/EVoNby7.png')
+                            ->addButton(ElementButton::create('visit')
+                                ->url('https://crowds.page')
+                            )
+                    ])
+                );
 
                 User::find($this->user->id)
                     ->update([
@@ -62,20 +96,9 @@ class OnboardingConversation extends Conversation
 
                 UserSetting::where('user_id', $this->user->id)
                     ->update([
-                        'is_bid_notification_enabled' => ($this->bids_notification_preference == 'yes')
+                        'is_bid_accepted_notification_enabled' => ($this->bids_accepted_notification_preference == 'yes')
                     ]);
 
-                $this->say(GenericTemplate::create()
-                    ->addImageAspectRatio(GenericTemplate::RATIO_SQUARE)
-                    ->addElements([
-                        Element::create('Congrats! Your account is now fully setup')
-                            ->subtitle('We will send you notifications via this bot as needed.')
-                            ->image('https://i.imgur.com/EVoNby7.png')
-                            ->addButton(ElementButton::create('visit')
-                                ->url('https://crowds.page')
-                            )
-                    ])
-                );
             }
         );
     }
