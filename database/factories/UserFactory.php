@@ -24,7 +24,7 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->name,
         'photo' => "https://api.adorable.io/avatars/285/{$faker->firstName}@adorable.png",
         'barangay_id' => rand(1, 59),
-        'setup_step' => 3,
+        'setup_step' => 4,
         'is_enabled' => true,
         'remember_token' => Str::random(10),
     ];
