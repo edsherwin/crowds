@@ -4,8 +4,11 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+
+use NotificationChannels\Facebook\FacebookChannel;
+use NotificationChannels\Facebook\FacebookMessage;
+use NotificationChannels\Facebook\Components\Button;
 
 class BidReceived extends Notification
 {
@@ -33,7 +36,7 @@ class BidReceived extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', FacebookChannel::class];
     }
 
     
@@ -50,5 +53,19 @@ class BidReceived extends Notification
             'bidder_name' => $this->bidder_name,
             'type' => 'bid_received'
         ];
+    }
+
+
+    public function toFacebook($notifiable)
+    {
+        $url = url('/orders');
+
+        return FacebookMessage::create()
+            ->to($notifiable->bot_user_id) 
+            ->text("Someone submitted a bid to your order.")
+            ->isTypeRegular() 
+            ->buttons([
+                Button::create('View Bid', $url)->isTypeWebUrl(),
+            ]); 
     }
 }
