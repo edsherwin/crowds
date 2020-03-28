@@ -15,6 +15,13 @@ function isSelected($current_value, $selected_value){
     }
 }
 
+function isChecked($current_value, $wanted_values = [1, 'on']) {
+  if (in_array($current_value, $wanted_values, true)) {
+    return 'checked';
+  }
+  return '';
+}
+
 function diffForHumans($datetime) {
 	return Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->diffForHumans();
 }

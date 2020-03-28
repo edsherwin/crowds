@@ -59,4 +59,10 @@ Route::middleware(['auth', 'setup.complete'])->group(function () {
     Route::get('/notifications', 'NotificationsController@index');
     Route::patch('/notifications', 'NotificationsController@update');
 
+    Route::get('/account', 'AccountSettingsController@edit');
+    Route::patch('/account/password', 'AccountSettingsController@updatePassword');
+    Route::patch('/account/contact', 'AccountSettingsController@updateContact');
+    Route::patch('/account/notifications', 'AccountSettingsController@updateNotifications');
+
+
 });
