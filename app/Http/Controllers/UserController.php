@@ -49,6 +49,11 @@ class UserController extends Controller
 
 
     public function completeSetupStepFour() {
+        Auth::user()->update([
+            'fcm_token' => request('_fcm_token'),
+            'setup_step' => 4,
+        ]);
+
         return back()->with('alert', ['type' => 'success', 'text' => "Setup complete! You can now make requests and submit bids."]);
     }
 

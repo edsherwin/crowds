@@ -345,22 +345,19 @@ function checkLoginState() {
 
       <div class="modal-body">
         <div class="alert alert-info">
-          In order to be notified of orders in your Barangay and bids submitted to your orders, you need to be onboarded through the app's Messenger chat bot. Click on the button below to get started.
+          Click the button below so you can receive notifications when someone orders in your barangay, someone makes a bid to your order, or when your bid gets accepted. If you don't want to receive notifications, simply click on the <strong>Finish Setup</strong> button.
         </div>
 
         <div class="row justify-content-center">
           <div class="col-md-6">
-            
-            <div class="my-2">
-              <span>Unique Code:</span>
-              <h3 class="mt-1">{{ Auth::user()->unique_id }}</h3>
-            </div>
 
+            <button type="button" class="btn btn-block btn-success" id="enable-notifications">Enable Notifications</button>
+            
             <form action="/setup/step-four" method="POST" id="notifications-form">
               @method('PATCH')
               @csrf
               @honeypot
-              <a href="https://m.me/109008434076156" class="btn btn-block btn-success">Visit Facebook Page</a>
+              <input type="hidden" name="_fcm_token" id="_fcm_token">
             </form>
           </div>
         </div>
@@ -470,5 +467,8 @@ function checkLoginState() {
 @endsection
 
 @section('foot_scripts')
-<script src="{{ mix('js/orders-feed.js') }}"></script>
+<script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-messaging.js"></script>
+<script src="{{ mix('js/orders-feed.js') }}" defer></script>
+<script src="{{ mix('js/user-setup.js') }}" defer></script>
 @endsection

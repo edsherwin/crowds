@@ -20,4 +20,5 @@ mix.js("resources/js/orders-feed.js", "public/js")
 	.js("resources/js/bids.js", "public/js")
 	.js("resources/js/view-contact.js", "public/js")
 	.js("resources/js/orders.js", "public/js")
+	.js("resources/js/user-setup.js", "public/js")
 	.version();
