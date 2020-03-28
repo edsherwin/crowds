@@ -10,6 +10,9 @@ use NotificationChannels\Facebook\FacebookChannel;
 use NotificationChannels\Facebook\FacebookMessage;
 use NotificationChannels\Facebook\Components\Button;
 
+use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
+
 class BidReceived extends Notification
 {
     use Queueable;
@@ -36,9 +39,9 @@ class BidReceived extends Notification
      */
     public function via($notifiable)
     {
-        $channels = ['database'];
+        $channels = [];
         if ($notifiable->setting->is_bid_notification_enabled) {
-            $channels[] = FacebookChannel::class;   
+            $channels = ['database', FacebookChannel::class, FcmChannel::class];   
         }
         return $channels;
     }
@@ -71,5 +74,15 @@ class BidReceived extends Notification
             ->buttons([
                 Button::create('View Bid', $url)->isTypeWebUrl(),
             ]); 
+    }
+
+    public function toFcm($notifiable)
+    {
+        // note: there's duplication here (see toFacebook)
+        return FcmMessage::create()
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
+                ->setTitle('New Bid')
+                ->setBody('Someone submitted a bid to your order.')
+            );
     }
 }

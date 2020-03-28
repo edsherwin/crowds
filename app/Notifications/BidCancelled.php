@@ -7,6 +7,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
+
 class BidCancelled extends Notification
 {
     use Queueable;
@@ -35,7 +38,11 @@ class BidCancelled extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        $channels = [];
+        if ($notifiable->setting->is_bid_cancelled_notification_enabled) {
+            $channels = ['database', FcmChannel::class]; // note: no Messenger yet like the other one's. App is still not approved, and there's the business registration requirement so..
+        }
+        return $channels;
     }
 
     /**
@@ -52,5 +59,15 @@ class BidCancelled extends Notification
             'cancel_reason' => $this->cancel_reason,
             'type' => 'bid_cancelled'
         ];
+    }
+
+
+    public function toFcm($notifiable)
+    {
+        return FcmMessage::create()
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
+                ->setTitle('Bid cancelled')
+                ->setBody($this->bidder_name . " cancelled their bid to your order.")
+            );
     }
 }

@@ -10,6 +10,9 @@ use NotificationChannels\Facebook\FacebookChannel;
 use NotificationChannels\Facebook\FacebookMessage;
 use NotificationChannels\Facebook\Components\Button;
 
+use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
+
 class BidAccepted extends Notification
 {
     use Queueable;
@@ -45,9 +48,9 @@ class BidAccepted extends Notification
      */
     public function via($notifiable)
     {
-        $channels = ['database'];
+        $channels = [];
         if ($notifiable->setting->is_bid_accepted_notification_enabled) {
-            $channels[] = FacebookChannel::class;
+            $channels = ['database', FacebookChannel::class, FcmChannel::class];
         }
         return $channels;
     }
@@ -92,5 +95,16 @@ class BidAccepted extends Notification
             ->isTypeRegular() 
             ->buttons($buttons);
     
+    }
+
+
+    public function toFcm($notifiable)
+    {
+        // note: there's duplication here (see toFacebook)
+        return FcmMessage::create()
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
+                ->setTitle('Your bid is accepted')
+                ->setBody($this->requester_name . " has accepted your bid for order #" . orderNumber($this->order_id) . ". Be sure to contact them before performing the service to make sure they're legit.")
+            );
     }
 }

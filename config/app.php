@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\BotMan\DriverServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
 
     ],
 
