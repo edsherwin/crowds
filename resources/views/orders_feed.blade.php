@@ -286,6 +286,8 @@ function checkLoginState() {
           @method('PATCH')
           @csrf
           @honeypot
+
+          <input type="hidden" name="_is_ios" id="_is_ios">
           <div class="form-group row">
               <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 

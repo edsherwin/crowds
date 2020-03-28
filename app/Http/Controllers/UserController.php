@@ -40,9 +40,15 @@ class UserController extends Controller
     		'messenger_id' => request('messenger_id')
     	]);
 
+        $setup_step = request()->has('_is_ios') ? 4 : 3;
+
     	Auth::user()->update([
-    		'setup_step' => 3
+    		'setup_step' => $setup_step // note: if device is iOS, skip directly to step 4 because there's no web notifications in iOS devices
     	]);
+
+        if ($setup_step == 4) {
+            return back()->with('alert', ['type' => 'success', 'text' => "Setup complete! You can now make requests and submit bids."]);
+        }
 
     	return back();
     }
