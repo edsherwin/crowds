@@ -37,7 +37,7 @@ class OrderCreated extends Notification
     {
         $channels = [];
         if ($notifiable->setting->is_orders_notification_enabled) {
-            $channels = [FacebookChannel::class, FcmChannel::class];
+            $channels = [FcmChannel::class];
         }
         return $channels;
     }

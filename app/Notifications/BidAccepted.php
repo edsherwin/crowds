@@ -50,7 +50,7 @@ class BidAccepted extends Notification
     {
         $channels = [];
         if ($notifiable->setting->is_bid_accepted_notification_enabled) {
-            $channels = ['database', FacebookChannel::class, FcmChannel::class];
+            $channels = ['database', FcmChannel::class];
         }
         return $channels;
     }
