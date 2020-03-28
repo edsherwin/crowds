@@ -36,7 +36,7 @@ class OrderCreated extends Notification
     public function via($notifiable)
     {
         $channels = [];
-        if ($notifiable->setting->is_orders_notification_enabled) {
+        if ($notifiable->setting->is_orders_notification_enabled && $notifiable->fcm_token) {
             $channels = [FcmChannel::class];
         }
         return $channels;
