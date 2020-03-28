@@ -345,7 +345,7 @@ function checkLoginState() {
 
       <div class="modal-body">
         <div class="alert alert-info">
-          Click the button below so you can receive notifications when someone orders in your barangay, someone makes a bid to your order, or when your bid gets accepted. If you don't want to receive notifications, simply click on the <strong>Finish Setup</strong> button.
+          Click the button below so you can receive notifications when someone orders in your barangay, someone makes a bid to your order, or when your bid gets accepted. Click <strong>allow</strong> when you get a prompt to enable notifications. If you don't want to receive notifications, simply click on the <strong>Finish Setup</strong> button.
         </div>
 
         <div class="row justify-content-center">
