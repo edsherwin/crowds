@@ -8,9 +8,16 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
+$('.button-loader').hide();
+
 $('#enable-notifications').click(function() {
+  $('.button-loader').show();
+  $('.button-text').hide();	
+  
   messaging.getToken()
     .then(function(token) {
+      $('.button-loader').hide();
+   	  $('.button-text').show();
       $('#_fcm_token').val(token);
       $('#notifications-form').trigger('submit');
     });

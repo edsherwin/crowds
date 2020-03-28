@@ -349,10 +349,14 @@ function checkLoginState() {
         </div>
 
         <div class="row justify-content-center">
-          <div class="col-md-6">
+          <div class="col-md-6 text-center">
 
-            <button type="button" class="btn btn-block btn-success" id="enable-notifications">Enable Notifications</button>
-            
+            <button type="button" class="btn btn-block btn-success" id="enable-notifications">
+              <span class="spinner-border spinner-border-sm button-loader" role="status"></span>
+              <span class="button-loader">Please wait...</span>
+              <span class="button-text">Enable Notifications</span>
+            </button>
+     
             <form action="/setup/step-four" method="POST" id="notifications-form">
               @method('PATCH')
               @csrf
