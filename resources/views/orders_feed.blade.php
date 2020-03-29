@@ -417,7 +417,7 @@ function checkLoginState() {
                         <div class="col-md-4 mt-3">
                             <strong>Description</strong>
                         </div>
-                        <div class="col-md-8 mt-1 mb-3" id="order-description">
+                        <div class="col-md-8 mt-3 mb-3" id="order-description">
                         {{ old('order_description') }}
                         </div>
                     </div>
