@@ -15,7 +15,7 @@
       @if (count($bids) > 0)
       <div class="bids clearfix">
         @foreach ($bids as $bid)
-        <div class="card mt-1">
+        <div class="card card-main mt-1">
           <div class="card-body">
             <div class="float-right">
               <small>{{ diffForHumans($bid->order->created_at) }}</small>
@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <div class="card offset-1 mt-1">
+        <div class="card offset-1 mt-1 mb-5">
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
