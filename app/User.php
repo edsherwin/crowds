@@ -72,6 +72,10 @@ class User extends Authenticatable
         return $this->hasMany(Order::class)->whereRaw("DATE(created_at) = ?", [now()->toDateString()]);
     }
 
+    public function ordersAcceptedToday() {
+        return $this->hasMany(Order::class)->whereRaw("DATE(created_at) = ?", [now()->toDateString()])->where('status', 'accepted');
+    }
+
     public function bidsToday() {
         return $this->hasMany(Bid::class)
             ->whereRaw("DATE(created_at) = ?", [now()->toDateString()]);

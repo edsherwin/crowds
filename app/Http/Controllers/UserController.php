@@ -9,17 +9,18 @@ use App\Http\Requests\ValidateUserContactInfo;
 use Auth;
 use App\User;
 use App\Order;
+use App\Bid;
 
 class UserController extends Controller
 {
     public function completeSetupStepOne(ValidateUserAddress $request) {
-    	
-    	Auth::user()->update([
-    		'barangay_id' => request('barangay'),
-    		'setup_step' => 1
-    	]);
+        
+        Auth::user()->update([
+            'barangay_id' => request('barangay'),
+            'setup_step' => 1
+        ]);
 
-    	return back();
+        return back();
     }
 
     public function completeSetupStepTwo(ValidateFacebookAccount $request) {
@@ -63,28 +64,28 @@ class UserController extends Controller
             return back()->with('alert', ['type' => 'danger', 'text' => "Sorry. We cannot find the Facebook account you're trying to connect."]);
         }
 
-    	return back();
+        return back();
     }
 
 
     public function completeSetupStepThree(ValidateUserContactInfo $request) {
 
-    	Auth::user()->detail->update([
-    		'phone_number' => request('phone_number'), 
-    		'messenger_id' => request('messenger_id')
-    	]);
+        Auth::user()->detail->update([
+            'phone_number' => request('phone_number'), 
+            'messenger_id' => request('messenger_id')
+        ]);
 
         $setup_step = request()->has('_is_ios') ? 4 : 3;
 
-    	Auth::user()->update([
-    		'setup_step' => $setup_step // note: if device is iOS, skip directly to step 4 because there's no web notifications in iOS devices
-    	]);
+        Auth::user()->update([
+            'setup_step' => $setup_step // note: if device is iOS, skip directly to step 4 because there's no web notifications in iOS devices
+        ]);
 
         if ($setup_step == 4) {
             return back()->with('alert', ['type' => 'success', 'text' => "Setup complete! You can now make requests and submit bids."]);
         }
 
-    	return back();
+        return back();
     }
 
 
@@ -99,17 +100,24 @@ class UserController extends Controller
 
 
     public function previousSetupStep() {
-    	if (Auth::user()->setup_step >= 1) {
-    		Auth::user()->decrement('setup_step');
-    	}
-    	return back();
+        if (Auth::user()->setup_step >= 1) {
+            Auth::user()->decrement('setup_step');
+        }
+        return back();
     }
 
 
     public function show(User $user) {
         // note: kinda fishy. there might be a more elegant or more performant way to do this
-        $accepted_order_ids = Auth::user()->bidsAcceptedToday->pluck('order_id')->toArray();
-        $viewable_user_ids = Order::whereIn('id', $accepted_order_ids)->pluck('user_id')->toArray();
+        // for poster
+        $poster_accepted_order_ids = Auth::user()->ordersAcceptedToday->pluck('id')->toArray();
+        $poster_viewable_user_ids = Bid::whereIn('order_id', $poster_accepted_order_ids)->pluck('user_id')->toArray();
+
+        // for bidder
+        $bidder_accepted_order_ids = Auth::user()->bidsAcceptedToday->pluck('order_id')->toArray();
+        $bidder_viewable_user_ids = Order::whereIn('id', $bidder_accepted_order_ids)->pluck('user_id')->toArray();
+
+        $viewable_user_ids = array_merge($poster_viewable_user_ids, $bidder_viewable_user_ids);
 
         if (in_array($user->id, $viewable_user_ids) || $user->id == Auth::id()) {
             return $user->detail;
