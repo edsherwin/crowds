@@ -97,12 +97,12 @@ class Bid extends Model
         if ($order->user->barangay_id != Auth::user()->barangay_id) {
             throw new \Exception("You can only submit a bid to orders posted in the same barangay as you.");
         }
-        
+
         if (Auth::user()->hasBids($order->bids)) {
             throw new \Exception("You can no longer submit a bid to an order which you've previously cancelled.");
         }
 
-        if ($order->postedBids->count() >= 5) {
+        if ($order->status != 'posted' || $order->postedBids->count() >= 5) { 
             throw new \Exception("Bids can no longer be submitted to this order.");
         }
 
