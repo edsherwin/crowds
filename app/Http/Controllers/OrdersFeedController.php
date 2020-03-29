@@ -13,9 +13,10 @@ class OrdersFeedController extends Controller
     		->posted()
     		->sameBarangay()
     		->createdWithinADay()
+            ->hasLessThanFivePostedBids()
     		->latest()
     		->paginate(10);
-    	
+
 		$provinces = DB::table('provinces')->get();
 		
     	return view('orders_feed', compact('orders', 'provinces'));

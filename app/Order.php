@@ -43,4 +43,8 @@ class Order extends Model
         return $query->whereRaw("TIMESTAMPDIFF(HOUR, created_at, '{$datetime_now}') <= 24");
     }
 
+    public function scopeHasLessThanFivePostedBids($query) {
+       return $query->has('postedBids', '<', 5);
+    }
+
 }
