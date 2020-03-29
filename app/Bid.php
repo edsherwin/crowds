@@ -102,6 +102,10 @@ class Bid extends Model
             throw new \Exception("You can no longer submit a bid to an order which you've previously cancelled.");
         }
 
+        if ($order->postedBids->count() >= 5) {
+            throw new \Exception("Bids can no longer be submitted to this order.");
+        }
+
         self::create($data);
     }
 }
