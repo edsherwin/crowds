@@ -24,8 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('orders:cancel_unfulfilled')->dailyAt('00:30')->withoutOverlapping();
     }
 
     /**

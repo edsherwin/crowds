@@ -47,4 +47,8 @@ class Order extends Model
        return $query->has('postedBids', '<', 5);
     }
 
+    public function scopeOlderThanHours($query, $hours) {
+        return $query->where('created_at', '<=', now()->subHours($hours)->toDateTimeString());
+    }
+
 }
