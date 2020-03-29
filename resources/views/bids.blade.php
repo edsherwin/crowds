@@ -135,7 +135,7 @@
                     <div class="form-group row">
                       <label for="cancel_reason" class="col-sm-5 col-form-label">Cancellation Reason</label>
                       <div class="col-sm-7">
-                        <input type="text" class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" placeholder="eg. The dog ate my homework" value="{{ old('cancel_reason') }}">
+                        <input type="text" class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" placeholder="eg. I have an emergency" value="{{ old('cancel_reason') }}">
 
                         @error('cancel_reason')
                           <span class="invalid-feedback bid-modal-error" role="alert">
