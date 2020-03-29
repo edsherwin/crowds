@@ -37,7 +37,7 @@
                 @endif
 
                 @if ($bid->status == 'cancelled')
-                <span class="badge badge-pill badge-danger">cancelled</span>
+                <span class="badge badge-pill badge-dark">cancelled</span>
                 @endif
               </h6>
             </div>
