@@ -67,17 +67,24 @@
 
                             <div class="pl-2">
                               <a href="/user/{{ $bid->user_id }}/reputation">{{ $bid->user->name }}</a>
-                              @if ($bid->status == 'accepted')
-                              <span class="badge badge-pill badge-warning">accepted</span>
-                              @endif
 
-                              @if ($bid->status == 'no_show')
-                              <span class="badge badge-pill badge-danger">no show</span>
-                              @endif
+                              <div>
+                                @if ($bid->status == 'accepted')
+                                <span class="badge badge-pill badge-warning">accepted</span>
+                                @endif
 
-                              @if ($bid->status == 'fulfilled')
-                              <span class="badge badge-pill badge-success">fulfilled</span>
-                              @endif
+                                @if ($bid->status == 'no_show')
+                                <span class="badge badge-pill badge-danger">no show</span>
+                                @endif
+
+                                @if ($bid->status == 'fulfilled')
+                                <span class="badge badge-pill badge-success">fulfilled</span>
+                                @endif
+
+                                @if ($bid->status == 'cancelled')
+                                <span class="badge badge-pill badge-dark">cancelled</span>
+                                @endif
+                              </div>
                             </div>
                           </div>
                         </div>
