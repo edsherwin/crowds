@@ -132,6 +132,9 @@
                 @csrf
                 @honeypot
                 <div class="container">
+                  <div class="alert alert-info">
+                  Whether your reason is valid or not, note that this will be reflected in your <a href="/user/{{ Auth::id() }}/reputation">user profile</a>. This is to ensure a safe and trusthworthy environment for all.
+                  </div>
                     <div class="form-group row">
                       <label for="cancel_reason" class="col-sm-5 col-form-label">Cancellation Reason</label>
                       <div class="col-sm-7">

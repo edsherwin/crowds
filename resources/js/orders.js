@@ -32,10 +32,13 @@ $('.accept-bid').click(function() {
 
 $('.mark-as-noshow').click(function() {
 	const self = $(this);
+	const bidder_id = self.data('bidder-id');
 	const bidder = self.data('bidder');
+	const user_id = self.data('user-id');
+
 
 	confirmAlert.fire({
-		text: `Are you sure you want to mark ${bidder} as no show?`,
+		html: `Are you sure you want to mark <strong>${bidder}</strong> as no show? Note that this will be reflected on both the <a href="/user/${bidder_id}/reputation">bidder's profile</a> and <a href="/user/${user_id}/reputation">yours</a>. This is to ensure a safe and trusthworthy environment for all.`,
 	}).then((result) => {
 	  if (result.value) {
 	    $(this).parent('form').submit();

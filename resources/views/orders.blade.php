@@ -121,7 +121,7 @@
                           @csrf
                           @honeypot
                           <input type="hidden" name="_order_id" value="{{ $order->id }}">
-                          <button type="button" class="btn btn-sm btn-danger mr-2 mark-as-noshow">No show</button>
+                          <button type="button" class="btn btn-sm btn-danger mr-2 mark-as-noshow" data-bidder="{{ $bid->user->name }}" data-bidder-id="{{ $bid->user_id }}" data-user-id="{{ $order->user_id }}">No show</button>
                         </form>
                       </div>
 
