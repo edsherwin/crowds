@@ -26,18 +26,10 @@ window.fbAsyncInit = function() {
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') { 
-      FB.api(
-        '/me/picture',
-        'GET',
-        {"redirect":"false", "type": "large"},
-        function(pic_response) {
-          if (pic_response.data) {
-            $('#_fb_profile_id').val(response.authResponse.userID);
-            $('#_fb_profile_pic').val(pic_response.data.url);
-            $('#step-two-form').trigger('submit');
-          }
-        }
-      );
+
+      $('#_fb_access_token').val(response.authResponse.accessToken);
+      $('#step-two-form').trigger('submit');
+
     }
   });
 }
@@ -235,19 +227,15 @@ function checkLoginState() {
         </button>
       </div>
       <div class="modal-body">
-        @error('_fb_profile_id')
-        <div class="alert alert-danger alert-dismissible fade show text-left" role="alert">
-          {{ $message }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        @else
+        
+        @include('partials.alert')
+
+        @if (!session('alert'))
         <div class="alert alert-info">
         Your Facebook account will be used to validate your identity. Your profile picture will be used for your posts.
         </div>
-        @enderror
-
+        @endif
+       
         <div class="row justify-content-center">
          
           <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true" data-scope="public_profile,email" data-onlogin="checkLoginState();"></div>
@@ -267,8 +255,7 @@ function checkLoginState() {
           @method('PATCH')
           @csrf
           @honeypot
-          <input type="hidden" name="_fb_profile_id" id="_fb_profile_id">
-          <input type="hidden" name="_fb_profile_pic" id="_fb_profile_pic">
+          <input type="hidden" name="_fb_access_token" id="_fb_access_token">
         </form>
       </div>
     </div>

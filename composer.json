@@ -15,6 +15,7 @@
         "botman/studio-addons": "^1.6",
         "botman/tinker": "^1.1",
         "doctrine/dbal": "^2.10",
+        "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.0",
         "laravel-notification-channels/facebook": "^0.1.0",
         "laravel-notification-channels/fcm": "^2.0",

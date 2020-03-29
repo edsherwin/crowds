@@ -24,11 +24,44 @@ class UserController extends Controller
 
     public function completeSetupStepTwo(ValidateFacebookAccount $request) {
 
-    	Auth::user()->update([
-            'facebook_id' => request('_fb_profile_id'),
-    		'photo' => request('_fb_profile_pic'),
-    		'setup_step' => 2
-    	]);
+        // note: borderline hacky. 
+        // might be more secure if Facebook PHP SDK is used without
+        // the help of JavaScript SDK
+        // also, create a service container to wrap this instead of calling the library directly
+        $fb = new \Facebook\Facebook([
+          'app_id' => config('services.facebook.app-id'),           
+          'app_secret' => config('services.facebook.app-secret'),   
+          'graph_api_version' => 'v5.0',
+        ]);
+
+        $access_token = request('_fb_access_token');
+
+        try {
+            $profile_response = $fb->get('/me', $access_token);
+            $profile_body = $profile_response->getDecodedBody();
+
+            $picture_response = $fb->get('/me/picture?redirect=false&type=large', $access_token);
+            $picture_body = $picture_response->getDecodedBody();
+      
+            $profile_data = array_merge($profile_body, $picture_body);
+
+            $facebook_user_exists = User::where('facebook_id', $profile_data['id'])->count();
+
+            if ($facebook_user_exists) {
+                
+                return back()->with('alert', ['type' => 'danger', 'text' => "Someone has already connected that Facebook account previously."]);
+            }
+
+            Auth::user()->update([
+                'facebook_id' => $profile_data['id'],
+                'photo' => $profile_data['data']['url'],
+                'setup_step' => 2
+            ]);
+
+        } catch(\Exception $e) {
+            // the only way this will go wrong is if the user is messing around with hidden inputs
+            return back()->with('alert', ['type' => 'danger', 'text' => "Sorry. We cannot find the Facebook account you're trying to connect."]);
+        }
 
     	return back();
     }
