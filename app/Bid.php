@@ -85,7 +85,7 @@ class Bid extends Model
     }
 
     public function cancel() {
-        if ($this->user_id == Auth::id()) {
+        if ($this->user_id == Auth::id() && ($this->status == 'accepted' || $this->status == 'posted')) {
             $this->status = 'cancelled';
         }
         return $this;
