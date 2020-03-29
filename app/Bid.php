@@ -74,7 +74,7 @@ class Bid extends Model
     }
 
     public function noShow() {
-        if ($this->order->user->id == Auth::id()) {
+        if ($this->order->user->id == Auth::id() && $this->status == 'accepted' && $this->order->status == 'accepted') {
             $this->status = 'no_show';
         }
         return $this;
