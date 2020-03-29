@@ -59,7 +59,7 @@ class Bid extends Model
         // note: kinda fishy. might be better off putting the condition somewhere else?
         // also, the API doesn't look quite right. might be better putting these in the Order model itself?
         // same with fulfill() and noShow()
-    	if ($this->order->user->id == Auth::id()) {
+    	if ($this->order->user->id == Auth::id() && $this->status == 'posted' && $this->order->status == 'posted') {
     		$this->status = 'accepted';
     	}
     	return $this;
