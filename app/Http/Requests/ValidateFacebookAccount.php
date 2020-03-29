@@ -25,8 +25,16 @@ class ValidateFacebookAccount extends FormRequest
     public function rules()
     {
         return [
-            '_fb_profile_id' => 'required|numeric',
+            '_fb_profile_id' => 'required|numeric|unique:users,facebook_id',
             '_fb_profile_pic' => 'required|url'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            '_fb_profile_id.unique' => 'Facebook profile has already been connected previously by another user.',
+            '_fb_profile_pic.required'  => 'Facebook profile picture is required.',
         ];
     }
 }

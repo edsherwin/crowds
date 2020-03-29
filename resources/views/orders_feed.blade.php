@@ -235,10 +235,19 @@ function checkLoginState() {
         </button>
       </div>
       <div class="modal-body">
+        @error('_fb_profile_id')
+        <div class="alert alert-danger alert-dismissible fade show text-left" role="alert">
+          {{ $message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        @else
         <div class="alert alert-info">
         Your Facebook account will be used to validate your identity. Your profile picture will be used for your posts.
         </div>
-      
+        @enderror
+
         <div class="row justify-content-center">
          
           <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true" data-scope="public_profile,email" data-onlogin="checkLoginState();"></div>
