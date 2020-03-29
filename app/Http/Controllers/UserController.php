@@ -8,6 +8,7 @@ use App\Http\Requests\ValidateFacebookAccount;
 use App\Http\Requests\ValidateUserContactInfo;
 use Auth;
 use App\User;
+use App\Order;
 
 class UserController extends Controller
 {
@@ -73,7 +74,14 @@ class UserController extends Controller
 
 
     public function show(User $user) {
+        // note: kinda fishy. there might be a more elegant or more performant way to do this
+        $accepted_order_ids = Auth::user()->bidsAcceptedToday->pluck('order_id')->toArray();
+        $viewable_user_ids = Order::whereIn('id', $accepted_order_ids)->pluck('user_id')->toArray();
 
-        return $user->detail;
+        if (in_array($user->id, $viewable_user_ids) || $user->id == Auth::id()) {
+            return $user->detail;
+        }
+        abort(401, "You cannot access this user's info");
     }
+
 }
