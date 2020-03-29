@@ -35,7 +35,7 @@
                     </p>
                   @elseif ($notification->data['type'] == 'bid_accepted')
                     <p>
-                    Your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> was accepted by <strong>{{ $notification->data['requester_name'] }}</strong>. You may contact them by clicking on the <strong>contact</strong> button to ensure that they're legit. You can also check their previous order history to see if they have a good reputation.
+                    Your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> was accepted by <strong>{{ $notification->data['requester_name'] }}</strong>. You may contact them by clicking on the <strong>contact</strong> button to ensure that they're legit. You can also check their previous order history to see if they have a good reputation. Note that you only have 24 hours to fulfill the order. After that, your bid will automatically be cancelled and it will be reflected on your user profile.
                     </p>
                   @elseif ($notification->data['type'] == 'bid_no_show')
                     <p>
