@@ -66,7 +66,7 @@ class Bid extends Model
     }
 
     public function fulfill() {
-        if ($this->order->user->id == Auth::id()) {
+        if ($this->order->user->id == Auth::id() && $this->status == 'accepted' && $this->order->status == 'accepted') {
             $this->status = 'fulfilled';
             return $this;
         }
