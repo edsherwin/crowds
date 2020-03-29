@@ -35,7 +35,7 @@ class Bid extends Model
                 ]);
             }
 
-            if ($model->status == 'cancelled' && $model->order->postedBids->count() == 0) {
+            if ($model->status == 'cancelled' && $model->order->status == 'accepted') {
                 $model->order->update([
                     'status' => 'posted'
                 ]);
