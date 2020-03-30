@@ -7,6 +7,25 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta name="title" content="Crowds">
+    <meta name="description" content="Where neighbors can rely on each other">
+
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Crowds Neighborhood App" />
+    <meta property="og:description" content="Where neighbors can rely on each other" />
+    <meta property="og:url" content="https://crowds.page" />
+    <meta property="og:site_name" content="Crowds" />
+
+    <meta property="og:image" content="{{ asset('images/crowds-logo-sharing.jpg') }}" />
+    <meta property="og:image:secure_url" content="{{ asset('images/crowds-logo-sharing.jpg') }}" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="Where neighbors can rely on each other" />
+    <meta name="twitter:title" content="Crowds Neighborhood App" />
+    <meta name="twitter:image" content="{{ asset('images/crowds-logo-sharing.jpg') }}" />
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
