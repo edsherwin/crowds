@@ -1,41 +1,5 @@
 @extends('layouts.app')
 
-@section('head_scripts')
-<script>
-(function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
-
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '568991763714607',
-    cookie     : true,
-    xfbml      : true,
-    version    : 'v6.0'
-  });
-    
-  FB.AppEvents.logPageView();  
-};
-
-
-function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    if (response.status === 'connected') { 
-
-      $('#_fb_access_token').val(response.authResponse.accessToken);
-      $('#step-two-form').trigger('submit');
-
-    }
-  });
-}
-</script>
-@endsection
-
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
@@ -50,8 +14,8 @@ function checkLoginState() {
   <div class="row justify-content-center">
   <div class="col-md-4 mt-3">
     @include('partials.alert')
-    
-    
+
+
     <form method="POST" action="/order/create">
       @csrf
       @honeypot
@@ -77,11 +41,11 @@ function checkLoginState() {
           <div class="my-3">
             <div class="card">
               <div class="card-body">
-               
+
                 <div class="float-right">
                   <small>{{ diffForHumans($order->created_at) }}</small>
                 </div>
-                
+
                 <div class="d-flex flex-row mt-1">
                   <div>
                     <img src="{{ $order->user->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ $order->user->name }}">
@@ -109,7 +73,7 @@ function checkLoginState() {
 
               </div>
             </div>
-          
+
           </div>
         @endforeach
 
@@ -153,7 +117,7 @@ function checkLoginState() {
         @csrf
         @honeypot
         <div class="modal-body">
-          
+
           <div class="form-group row">
               <label for="province" class="col-md-4 col-form-label text-md-right">{{ __('Province') }}</label>
 
@@ -178,7 +142,7 @@ function checkLoginState() {
 
               <div class="col-md-6">
                   <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
-                    
+
                   </select>
 
                   @error('city')
@@ -194,7 +158,7 @@ function checkLoginState() {
 
               <div class="col-md-6">
                   <select name="barangay" id="barangay" class="form-control @error('barangay') is-invalid @enderror">
-                      
+
                   </select>
 
                   @error('barangay')
@@ -227,7 +191,7 @@ function checkLoginState() {
         </button>
       </div>
       <div class="modal-body">
-        
+
         @include('partials.alert')
 
         @if (!session('alert'))
@@ -235,9 +199,9 @@ function checkLoginState() {
         Your Facebook account will be used to validate your identity. Your profile picture will be used for your posts.
         </div>
         @endif
-       
+
         <div class="row justify-content-center">
-         
+
           <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true" data-scope="public_profile,email" data-onlogin="checkLoginState();"></div>
 
         </div>
@@ -277,7 +241,7 @@ function checkLoginState() {
         <div class="alert alert-info">
           Your phone number or your Facebook Messenger ID will be used to facilitate communication between users. This information will only be available to both parties once a request has been accepted.
         </div>
-        
+
         <form action="/setup/step-three" method="POST" id="user-contact-form">
           @method('PATCH')
           @csrf
@@ -315,7 +279,7 @@ function checkLoginState() {
 
       </div>
       <div class="modal-footer">
-        
+
         <form action="/setup/back" method="POST">
           @method('PATCH')
           @csrf
@@ -354,7 +318,7 @@ function checkLoginState() {
               <span class="button-loader">Please wait...</span>
               <span class="button-text">Enable Notifications</span>
             </button>
-     
+
             <form action="/setup/step-four" method="POST" id="notifications-form">
               @method('PATCH')
               @csrf
@@ -366,7 +330,7 @@ function checkLoginState() {
       </div>
 
       <div class="modal-footer">
-        
+
         <form action="/setup/back" method="POST">
           @method('PATCH')
           @csrf
@@ -471,6 +435,6 @@ function checkLoginState() {
 @section('foot_scripts')
 <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-messaging.js"></script>
-<script src="{{ mix('js/orders-feed.js') }}" defer></script>
 <script src="{{ mix('js/user-setup.js') }}" defer></script>
+<script src="{{ mix('js/orders-feed.js') }}" defer></script>
 @endsection
