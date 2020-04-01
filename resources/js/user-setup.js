@@ -54,12 +54,14 @@ if ($("#setup_step").val() == "3") {
         $("#enable-notifications").click(function() {
             $(".button-loader").show();
             $(".button-text").hide();
+            $("button").prop("disabled", true);
 
             messaging
                 .getToken()
                 .then(function(token) {
                     $(".button-loader").hide();
                     $(".button-text").show();
+                    $("button").prop("disabled", false);
                     $("#_fcm_token").val(token);
                     $("#notifications-form").trigger("submit");
                 })
