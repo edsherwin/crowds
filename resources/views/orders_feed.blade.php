@@ -141,15 +141,23 @@
               <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
 
               <div class="col-md-6">
-                  <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
+                  <div class="text-center loader">
+                    <div class="spinner-border">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
 
-                  </select>
+                    </select>
 
-                  @error('city')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
+                    @error('city')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                  </div>
               </div>
           </div>
 
@@ -157,15 +165,23 @@
               <label for="barangay" class="col-md-4 col-form-label text-md-right">{{ __('Barangay') }}</label>
 
               <div class="col-md-6">
-                  <select name="barangay" id="barangay" class="form-control @error('barangay') is-invalid @enderror">
+                  <div class="text-center loader">
+                    <div class="spinner-border">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
 
-                  </select>
+                  <div>
+                    <select name="barangay" id="barangay" class="form-control @error('barangay') is-invalid @enderror">
 
-                  @error('barangay')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
+                    </select>
+
+                    @error('barangay')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                  </div>
               </div>
           </div>
 

@@ -93,9 +93,25 @@ if ($("#setup_step").val() == "3") {
 const setup_modal = parseInt($("#setup_step").val());
 $(`#user-setup-modal-${setup_modal}`).modal();
 
+$('.loader').hide();
+
+function showLoader() {
+    $('.loader').show();
+    $('.loader').siblings('div').hide();
+}
+
+function hideLoader() {
+    $('.loader').hide();
+    $('.loader').siblings('div').show();
+}
+
 $("#province").change(function() {
     const id = $(this).val();
+    showLoader();
+    
     $.get(`/province/${id}`, (cities) => {
+        hideLoader();
+
         let html = '<option value="">Select city</option>';
         cities.forEach((row) => {
             html += `<option value="${row.id}">${row.name}</option>`;
@@ -108,7 +124,11 @@ $("#province").change(function() {
 
 $("#city").change(function() {
     const id = $(this).val();
+    showLoader();
+
     $.get(`/city/${id}`, (barangays) => {
+        hideLoader();
+        
         let html = '<option value="">Select barangay</option>';
         barangays.forEach((row) => {
             html += `<option value="${row.id}">${row.name}</option>`;
