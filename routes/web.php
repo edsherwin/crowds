@@ -65,7 +65,7 @@ Route::middleware(['auth', 'setup.complete'])->group(function () {
     Route::patch('/account/notifications', 'AccountSettingsController@updateNotifications');
 
     Route::get('/barangay', 'BarangayOrdersController@index');
-    Route::post('/barangay-order/create', 'BarangayOrdersController@create')->middleware('limit.order');
+    Route::post('/barangay-order/create', 'BarangayOrdersController@create')->middleware(['limit.order', 'only.non-officers']);
 
     Route::patch('/barangay-order/fulfilled', 'BarangayOrdersController@fulfill');
 });
