@@ -151,8 +151,30 @@
           </div>
         </fieldset>
       </form>
-
+    
     </div>
   </div>
+  
+  @if (Auth::user()->user_type == 'user')
+  <div class="row justify-content-center">
+    <div class="col-md-4 mt-3">
+      <hr>
+      @if (Auth::user()->officerAccountRequests)
+      <p class="text-secondary">Please wait for your officer account request to get approved. </p>
+      @else
+      <p class="text-secondary">Note: only request an officer account if you're an officer of your Barangay.</p>
+      <form action="/officer-account/request" method="POST">
+        @csrf
+        @honeypot
+        <button type="button" class="btn btn-block btn-warning" id="request-officer-account">Request officer account</button>
+      </form>
+      @endif
+    </div>
+  </div>
+  @endif
 </div>
+@endsection
+
+@section('foot_scripts')
+<script src="{{ mix('js/account.js') }}" defer></script>
 @endsection

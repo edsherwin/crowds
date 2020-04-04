@@ -68,4 +68,6 @@ Route::middleware(['auth', 'setup.complete'])->group(function () {
     Route::post('/barangay-order/create', 'BarangayOrdersController@create')->middleware(['limit.order', 'only.non-officers']);
 
     Route::patch('/barangay-order/fulfilled', 'BarangayOrdersController@fulfill');
+
+    Route::post('/officer-account/request', 'OfficerAccountController@requestAccount');
 });

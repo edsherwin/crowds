@@ -10,6 +10,7 @@ use App\Order;
 use App\Barangay;
 use App\Bid;
 use App\UserSetting;
+use App\OfficerAccountRequest;
 
 class User extends Authenticatable
 {
@@ -97,5 +98,9 @@ class User extends Authenticatable
 
     public function routeNotificationForFcm() {
         return $this->fcm_token;
+    }
+
+    public function officerAccountRequests() {
+        return $this->hasOne(OfficerAccountRequest::class, 'user_id');
     }
 }
