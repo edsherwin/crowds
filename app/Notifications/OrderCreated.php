@@ -49,10 +49,10 @@ class OrderCreated extends Notification
 
         return FacebookMessage::create()
             ->to($notifiable->bot_user_id)
-            ->text("Someone from your barangay created a new order.")
+            ->text("Someone from your barangay created a new request.")
             ->isTypeRegular()
             ->buttons([
-                Button::create('View Order', $url)->isTypeWebUrl(),
+                Button::create('View Request', $url)->isTypeWebUrl(),
             ]);
     }
 
@@ -62,8 +62,8 @@ class OrderCreated extends Notification
         // note: there's duplication here (see toFacebook)
         return FcmMessage::create()
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                ->setTitle('New Order')
-                ->setBody('Someone from your barangay created a new order.')
+                ->setTitle('New Request')
+                ->setBody('Someone from your barangay created a new request.')
             );
 
     }

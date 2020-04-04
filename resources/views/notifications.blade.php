@@ -31,23 +31,23 @@
                 <div class="mt-4">
                   @if ($notification->data['type'] == 'bid_received')
                     <p>
-                    You received a new bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> from <strong>{{ $notification->data['bidder_name'] }}</strong>
+                    You received a new bid for request <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> from <strong>{{ $notification->data['bidder_name'] }}</strong>
                     </p>
                   @elseif ($notification->data['type'] == 'bid_accepted')
                     <p>
-                    Your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> was accepted by <strong>{{ $notification->data['requester_name'] }}</strong>. You may contact them by clicking on the <strong>contact</strong> button to ensure that they're legit. You can also check their previous order history to see if they have a good reputation. Note that you only have 24 hours to fulfill the order. After that, your bid will automatically be cancelled and it will be reflected on your user profile.
+                    Your bid for request <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> was accepted by <strong>{{ $notification->data['requester_name'] }}</strong>. You may contact them by clicking on the <strong>contact</strong> button to ensure that they're legit. You can also check their previous request history to see if they have a good reputation. Note that you only have 24 hours to fulfill the request. After that, your bid will automatically be cancelled and it will be reflected on your user profile.
                     </p>
                   @elseif ($notification->data['type'] == 'bid_no_show')
                     <p>
-                    <strong>{{ $notification->data['requester_name'] }}</strong> has marked your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> as "no show".
+                    <strong>{{ $notification->data['requester_name'] }}</strong> has marked your bid for request <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> as "no show".
                     </p>
                   @elseif ($notification->data['type'] == 'bid_fulfilled')
                     <p>
-                    Congrats! <strong>{{ $notification->data['requester_name'] }}</strong> has marked your bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> as "fulfilled".
+                    Congrats! <strong>{{ $notification->data['requester_name'] }}</strong> has marked your bid for request <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> as "fulfilled".
                     </p>
                   @elseif ($notification->data['type'] == 'bid_cancelled')
                     <p>
-                    {{ $notification->data['bidder_name'] }} cancelled their bid for order <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> because of the following reason: {{ $notification->data['cancel_reason'] }}
+                    {{ $notification->data['bidder_name'] }} cancelled their bid for request <strong>#{{ orderNumber($notification->data['order_id']) }}</strong> because of the following reason: {{ $notification->data['cancel_reason'] }}
                     </p>
                   @endif
                 </div>

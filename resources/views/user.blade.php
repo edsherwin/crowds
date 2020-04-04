@@ -25,7 +25,7 @@
           <div class="mt-3">
             <div>
               <div>
-                <strong>Orders</strong>
+                <strong>Requests</strong>
               </div>
 
               <table class="table table-sm mt-1">

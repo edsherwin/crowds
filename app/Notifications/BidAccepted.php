@@ -81,7 +81,7 @@ class BidAccepted extends Notification
         $page_url = url('/bids');
         
         $buttons = [
-            Button::create('View Order', $page_url)->isTypeWebUrl(),  
+            Button::create('View Request', $page_url)->isTypeWebUrl(),  
         ];
 
         if ($this->requester_phone) {
@@ -95,7 +95,7 @@ class BidAccepted extends Notification
 
         return FacebookMessage::create()
             ->to($notifiable->bot_user_id) 
-            ->text($this->requester_name . " has accepted your bid for order #" . orderNumber($this->order_id) . ". Be sure to contact them before performing the service to make sure they're legit.")
+            ->text($this->requester_name . " has accepted your bid for request #" . orderNumber($this->order_id) . ". Be sure to contact them before performing the service to make sure they're legit.")
             ->isTypeRegular() 
             ->buttons($buttons);
     
@@ -108,7 +108,7 @@ class BidAccepted extends Notification
         return FcmMessage::create()
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
                 ->setTitle('Your bid is accepted')
-                ->setBody($this->requester_name . " has accepted your bid for order #" . orderNumber($this->order_id) . ". Be sure to contact them before performing the service to make sure they're legit.")
+                ->setBody($this->requester_name . " has accepted your bid for request #" . orderNumber($this->order_id) . ". Be sure to contact them before performing the service to make sure they're legit.")
             );
     }
 }

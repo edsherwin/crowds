@@ -73,7 +73,7 @@ class BidReceived extends Notification
 
         return FacebookMessage::create()
             ->to($notifiable->bot_user_id) 
-            ->text("Someone submitted a bid to your order.")
+            ->text("Someone submitted a bid to your request.")
             ->isTypeRegular() 
             ->buttons([
                 Button::create('View Bid', $url)->isTypeWebUrl(),
@@ -86,7 +86,7 @@ class BidReceived extends Notification
         return FcmMessage::create()
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
                 ->setTitle('New Bid')
-                ->setBody('Someone submitted a bid to your order.')
+                ->setBody('Someone submitted a bid to your request.')
             );
     }
 }

@@ -58,7 +58,7 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="/orders">{{ __('Orders') }}</a>
+                            <a class="nav-link" href="/orders">{{ __('Requests') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/bids">{{ __('Bids') }}</a>

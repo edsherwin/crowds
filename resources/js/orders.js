@@ -49,7 +49,7 @@ $('.mark-as-noshow').click(function() {
 $('.mark-as-fulfilled').click(function() {
 	const self = $(this);
 	confirmAlert.fire({
-		text: "Are you sure you want to mark the order as fulfilled?",
+		text: "Are you sure you want to mark the request as fulfilled?",
 	}).then((result) => {
 	  if (result.value) {
 	  	console.log('bam');

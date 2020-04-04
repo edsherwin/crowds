@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-4">
-      <h5>My Orders</h5>
+      <h5>My Requests</h5>
     </div>
   </div>
 
@@ -23,7 +23,7 @@
 
                 <div class="mt-1">
                   <h6>
-                    Order #{{ orderNumber($order->id) }}
+                    Request #{{ orderNumber($order->id) }}
                     @if ($order->status == 'accepted')
                       <span class="badge badge-pill badge-warning">accepted</span>
                     @elseif ($order->status == 'fulfilled')
@@ -155,7 +155,7 @@
 
       @if (count($orders) == 0)
       <div class="alert alert-info">
-        You haven't posted any orders yet.
+        You haven't posted any requests yet.
       </div>
       @endif
     </div>

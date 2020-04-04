@@ -123,7 +123,7 @@
               <div class="custom-control custom-switch">
 
                 <input type="checkbox" class="custom-control-input" name="new_order" id="new_order" {{ isChecked(old('new_order', $settings->is_orders_notification_enabled)) }}>
-                <label class="custom-control-label" for="new_order">New orders</label>
+                <label class="custom-control-label" for="new_order">New requests</label>
               </div>
 
               <div class="custom-control custom-switch">

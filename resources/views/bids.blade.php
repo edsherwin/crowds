@@ -23,7 +23,7 @@
 
             <div class="mt-1">
               <h6>
-                Order #{{ orderNumber($bid->order->id) }}
+                Request #{{ orderNumber($bid->order->id) }}
                 @if ($bid->status == 'accepted')
                 <span class="badge badge-pill badge-warning">accepted</span>
                 @endif

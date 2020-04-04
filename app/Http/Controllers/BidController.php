@@ -44,7 +44,7 @@ class BidController extends Controller
         $bid->user->notify(new BidAccepted($order_id, Auth::user()->name, Auth::user()->detail->phone_number, Auth::user()->detail->messenger_id));
 
     	return back()
-    		->with('alert', ['type' => 'success', 'text' => "Bid accepted! Please contact the bidder by clicking on the <strong>contact</strong> button below so that they know you're legit. Note that you only have 24 hours to mark your order as fulfilled before it's automatically marked as cancelled. This will be reflected on your user profile."]);
+    		->with('alert', ['type' => 'success', 'text' => "Bid accepted! Please contact the bidder by clicking on the <strong>contact</strong> button below so that they know you're legit. Note that you only have 24 hours to mark your request as fulfilled before it's automatically marked as cancelled. This will be reflected on your user profile."]);
     }
 
     public function fulfill(Bid $bid) {
@@ -54,7 +54,7 @@ class BidController extends Controller
         $bid->user->notify(new BidFulfilled($order_id, Auth::user()->name));
 
         return back()
-            ->with('alert', ['type' => 'success', 'text' => "Order marked as <strong>fulfilled</strong>"]);
+            ->with('alert', ['type' => 'success', 'text' => "Request marked as <strong>fulfilled</strong>"]);
     }
 
     public function noShow(Bid $bid) {

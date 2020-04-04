@@ -71,7 +71,7 @@ class BidCancelled extends Notification
         return FcmMessage::create()
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
                 ->setTitle('Bid cancelled')
-                ->setBody($this->bidder_name . " cancelled their bid to your order.")
+                ->setBody($this->bidder_name . " cancelled their bid to your request.")
             );
     }
 }

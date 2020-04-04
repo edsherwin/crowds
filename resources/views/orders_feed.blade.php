@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-4">
-      <h5>Orders Feed @if (Auth::user()->barangay) (Brgy. {{ Auth::user()->barangay->name }}) @endif</h5>
+      <h5>Requests Feed @if (Auth::user()->barangay) (Brgy. {{ Auth::user()->barangay->name }}) @endif</h5>
     </div>
   </div>
 
@@ -84,7 +84,7 @@
 
       @if (count($orders) == 0)
       <div class="alert alert-info">
-        No orders in your neighborhood yet.
+        No requests in your neighborhood yet.
       </div>
       @endif
     </div>
@@ -323,7 +323,7 @@
 
       <div class="modal-body">
         <div class="alert alert-info">
-          Click the button below so you can receive notifications when someone orders in your barangay, someone makes a bid to your order, or when your bid gets accepted. Click <strong>allow</strong> when you get a prompt to enable notifications. If you don't want to receive notifications, simply click on the <strong>Finish Setup</strong> button.
+          Click the button below so you can receive notifications when someone makes a request in your barangay, someone makes a bid to your request, or when your bid gets accepted. Click <strong>allow</strong> when you get a prompt to enable notifications. If you don't want to receive notifications, simply click on the <strong>Finish Setup</strong> button.
         </div>
 
         <div class="row justify-content-center">
@@ -368,7 +368,7 @@
 
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Order Details</h5>
+          <h5 class="modal-title">Request Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
