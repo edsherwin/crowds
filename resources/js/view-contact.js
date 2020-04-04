@@ -8,13 +8,13 @@ $('.loader, .loaded-content').hide();
 
 $('.view-contact').click(function() {
 	const self = $(this);
-	const bidder_id = self.data('userid');
+	const user_id = self.data('userid');
 
 	$('#contact-info-modal').modal();
 	$('.loader').show();
 	$('.loaded-content').hide();
 
-	$.get(`/user/${bidder_id}`, ({ phone_number, messenger_id }) => {
+	$.get(`/user/${user_id}`, ({ phone_number, messenger_id }) => {
 		$('.loader').hide();
 		$('.loaded-content').show();
 		

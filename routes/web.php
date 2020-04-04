@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'setup.complete'])->group(function () {
 
-    Route::get('/user/{user}', 'UserController@show');
+    Route::get('/user/{user}', 'UserController@show')->middleware('only.contactable-users');
     Route::get('/user/{user}/reputation', 'UserReputationController@show');
 
     Route::post('/order/create', 'OrdersController@create')->middleware('limit.order');

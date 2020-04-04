@@ -108,21 +108,7 @@ class UserController extends Controller
 
 
     public function show(User $user) {
-        // note: kinda fishy. there might be a more elegant or more performant way to do this
-        // for poster
-        $poster_accepted_order_ids = Auth::user()->ordersAcceptedToday->pluck('id')->toArray();
-        $poster_viewable_user_ids = Bid::whereIn('order_id', $poster_accepted_order_ids)->pluck('user_id')->toArray();
-
-        // for bidder
-        $bidder_accepted_order_ids = Auth::user()->bidsAcceptedToday->pluck('order_id')->toArray();
-        $bidder_viewable_user_ids = Order::whereIn('id', $bidder_accepted_order_ids)->pluck('user_id')->toArray();
-
-        $viewable_user_ids = array_merge($poster_viewable_user_ids, $bidder_viewable_user_ids);
-
-        if (in_array($user->id, $viewable_user_ids) || $user->id == Auth::id()) {
-            return $user->detail;
-        }
-        abort(401, "You cannot access this user's info");
+        return $user->detail;
     }
 
 }

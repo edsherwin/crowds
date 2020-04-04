@@ -68,7 +68,8 @@ class Kernel extends HttpKernel
 
         'setup.complete' => \App\Http\Middleware\PromptUserToCompleteSetup::class,
 
-        'only.non-officers' => \App\Http\Middleware\OnlyForNonOfficers::class
+        'only.non-officers' => \App\Http\Middleware\OnlyForNonOfficers::class,
+        'only.contactable-users' => \App\Http\Middleware\OnlyContactableUsers::class,
     ];
 
     /**

@@ -74,8 +74,12 @@
                     @csrf
                     @honeypot
                     <input type="hidden" name="_order_id" value="{{ $order->id }}">
-                    <button type="button" class="btn btn-sm btn-primary float-right fulfill-order" data-user="{{ $order->user->name }}">Fulfill</button>
+                    <button type="button" class="btn btn-sm btn-success float-right fulfill-order" data-user="{{ $order->user->name }}">Fulfill</button>
                   </form>
+                  
+                  <button class="btn btn-sm btn-secondary mr-2 float-right view-contact" data-userid="{{ $order->user_id }}" type="button">
+                    Contact
+                  </button>
                 </div>
                 @endif
 
@@ -96,10 +100,12 @@
       @endif
     </div>
 	</div>	
-
 </div>
+
+@include('partials.contact-modal')
 @endsection
 
 @section('foot_scripts')
 <script src="{{ mix('js/barangay-orders.js') }}" defer></script>
+<script src="{{ mix('js/view-contact.js') }}" defer></script>
 @endsection
