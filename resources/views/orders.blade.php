@@ -21,7 +21,21 @@
                   <small>{{ diffForHumans($order->created_at) }}</small>
                 </div>
 
-                <div class="mt-1">
+                <div class="d-flex flex-row mt-1">
+                  <div>
+                    <img src="{{ Auth::user()->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ Auth::user()->name }}">
+                  </div>
+                  <div class="pl-2">
+                    <a href="/user/{{ Auth::id() }}/reputation">{{ Auth::user()->name }}</a>
+                    @if (Auth::user()->user_type == 'officer')
+                    <div>
+                      <span class="badge badge-pill badge-info">officer</span>
+                    </div>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="mt-2">
                   <h6>
                     Request #{{ orderNumber($order->id) }}
                     @if ($order->status == 'accepted')
@@ -35,9 +49,9 @@
                     @endif
                   </h6>
 
-                  <p>
+                  <div>
                   {{ $order->description }}
-                  </p>
+                  </div>
 
                 </div>
               </div>

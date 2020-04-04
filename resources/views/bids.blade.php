@@ -48,6 +48,11 @@
               </div>
               <div class="pl-2">
                 <a href="/user/{{ $bid->order->user_id }}/reputation">{{ $bid->order->user->name }}</a>
+                @if ($bid->order->user->user_type == 'officer')
+                <div>
+                  <span class="badge badge-pill badge-info">officer</span>
+                </div>
+                @endif
               </div>
             </div>
 
@@ -79,17 +84,27 @@
               <div class="col-md-12">
                 <div class="d-flex flex-row mt-2">
                   <div>
-                    <img src="{{ $bid->user->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ $bid->user->name }}">
+                    <img src="{{ Auth::user()->photo }}" style="width: 50px;" class="img-thumbnail" alt="{{ Auth::user()->name }}">
+                  </div>
+                  
+                  <div class="pl-2">
+                    <a href="/user/{{ Auth::id() }}/reputation">{{ Auth::user()->name }}</a>
+                    
+                    @if (Auth::user()->user_type == 'officer')
+                    <div>
+                      <span class="badge badge-pill badge-info">officer</span>
+                    </div>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="mt-2">
+                  <div>
+                    <strong>Service Fee: </strong> {{ money($bid->service_fee) }}
                   </div>
 
-                  <div class="pl-2">
-                    <div>
-                      <strong>Service Fee: </strong> {{ money($bid->service_fee) }}
-                    </div>
-
-                    <div class="py-1">
-                      {{ $bid->notes }}
-                    </div>
+                  <div class="py-1">
+                    {{ $bid->notes }}
                   </div>
                 </div>
 

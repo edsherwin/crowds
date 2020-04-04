@@ -19,6 +19,11 @@
             </div>
             <div class="pl-2">
               <strong>{{ $user->name }}</strong>
+              @if ($user->user_type == 'officer')
+              <div>
+                <span class="badge badge-pill badge-info">officer</span>
+              </div>
+              @endif
             </div>
           </div>
           

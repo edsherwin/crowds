@@ -52,7 +52,11 @@
                   </div>
                   <div class="pl-2">
                     <a href="/user/{{ $order->user_id }}/reputation">{{ $order->user->name }}</a>
+                   
                     <div>
+                      @if ($order->user->user_type == 'officer')
+                      <span class="badge badge-pill badge-info">officer</span>
+                      @endif
                       @if ($order->postedBids->count())
                       <span class="badge badge-pill badge-primary">{{ $order->postedBids->count() }} {{ Str::plural('bid', $order->postedBids->count()) }}</span>
                       @endif
