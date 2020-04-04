@@ -11,7 +11,8 @@ class OrdersFeedController extends Controller
     public function index() {
     	$orders = Order::with(['user', 'user.detail', 'postedBids'])
     		->posted()
-    		->sameBarangay()
+    		->general()
+            ->sameBarangay()
     		->createdWithinADay()
             ->hasLessThanFivePostedBids()
     		->latest()

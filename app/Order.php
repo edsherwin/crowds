@@ -10,7 +10,7 @@ use Auth;
 class Order extends Model
 {
     protected $fillable = [
-    	'user_id', 'barangay_id', 'description', 'status'
+    	'user_id', 'barangay_id', 'is_barangay_only', 'description', 'status'
     ];
 
 
@@ -49,6 +49,24 @@ class Order extends Model
 
     public function scopeOlderThanHours($query, $hours) {
         return $query->where('created_at', '<=', now()->subHours($hours)->toDateTimeString());
+    }
+
+    public function scopeGeneral($query) {
+        return $query->where('is_barangay_only', false);
+    }
+
+    public function scopeBarangay($query) {
+        return $query->where('is_barangay_only', true);
+    }
+
+    public function fulfill() {
+        if (Auth::user()->user_type == 'officer' && Auth::user()->barangay_id == $this->barangay_id) {
+            $this->update([
+                'status' => 'fulfilled'
+            ]);
+            return $this;
+        }
+        abort(403, "You're not allowed to update this data");
     }
 
 }

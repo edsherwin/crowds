@@ -22,4 +22,5 @@ mix.js("resources/js/orders-feed.js", "public/js")
 	.js("resources/js/orders.js", "public/js")
 	.js("resources/js/user-setup.js", "public/js")
 	.js("resources/js/firebase-messaging-sw.js", "public")
+	.js("resources/js/barangay-orders.js", "public/js")
 	.version();

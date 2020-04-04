@@ -63,6 +63,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/bids">{{ __('Bids') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/barangay">{{ __('Barangay') }}</a>
+                        </li>
                         @endauth
                     </ul>
 

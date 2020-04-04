@@ -17,7 +17,7 @@ class LimitOrder
     public function handle($request, Closure $next)
     {
         if (Auth::user()->ordersToday->count() >= 3) {
-            return back()->with('alert', ['type' => 'danger', 'text' => "That's enough requests for today. Go do it yourself and get some exercise :)"]);   
+            return back()->with('alert', ['type' => 'danger', 'text' => "That's enough requests for today."]);   
         }
 
         return $next($request);
