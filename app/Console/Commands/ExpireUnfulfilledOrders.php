@@ -6,21 +6,21 @@ use Illuminate\Console\Command;
 use App\Order;
 use App\Bid;
 
-class CancelUnfulfilledOrders extends Command
+class ExpireUnfulfilledOrders extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'orders:cancel_unfulfilled';
+    protected $signature = 'orders:expire_unfulfilled';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Cancels accepted orders (and corresponding bids) that are 24 hours old or more.';
+    protected $description = 'Expires unfulfilled orders (and corresponding bids) depending on their type. General orders = 48 hours, barangay orders = 168 hours (1 week)';
 
     /**
      * Create a new command instance.
@@ -39,23 +39,32 @@ class CancelUnfulfilledOrders extends Command
      */
     public function handle()
     {
-        $orders_older_than_24_hours = Order::olderThanHours(24)->with('bids')->get();
+        // general orders
+        $general_orders = Order::olderThanHours(24)->general()->with('bids')->get();
     
         $bids = [];
-        foreach ($orders_older_than_24_hours as $order) {
+        foreach ($general_orders as $order) {
             if ($order->bids->count()) {
                 $bids = array_merge($bids, $order->bids->pluck('id')->toArray());
             }
         }
 
+        $status = 'expired';
+
         if (count($bids)) {
             Bid::whereIn('id', $bids)->update([
-                'status' => 'cancelled'
+                'status' => $status
             ]);
         }
 
-        Order::olderThanHours(24)->update([
-            'status' => 'cancelled'
+        Order::olderThanHours(24)->general()->unfulfilled()->update([
+            'status' => $status
         ]);
+
+        // barangay orders
+        Order::olderThanHours(168)->barangay()->unfulfilled()->update([
+            'status' => $status
+        ]);
+
     }
 }

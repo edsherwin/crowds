@@ -52,6 +52,10 @@
               @if ($bid->status == 'cancelled')
               <span class="badge badge-pill badge-dark">cancelled</span>
               @endif
+
+              @if ($bid->status == 'expired')
+              <span class="badge badge-pill badge-secondary">expired</span>
+              @endif
             </div>
 
             <div class="mt-1">

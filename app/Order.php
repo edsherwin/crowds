@@ -73,4 +73,8 @@ class Order extends Model
         abort(403, "You're not allowed to update this data");
     }
 
+    public function scopeUnfulfilled($query) {
+        return $query->whereIn('status', ['posted', 'accepted']);
+    }
+
 }

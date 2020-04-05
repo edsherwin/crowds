@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('orders:cancel_unfulfilled')->dailyAt('00:30')->withoutOverlapping();
+        $schedule->command('orders:expire_unfulfilled')->dailyAt('00:30')->withoutOverlapping();
     }
 
     /**

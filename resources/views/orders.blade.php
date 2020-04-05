@@ -41,6 +41,8 @@
                     <span class="badge badge-pill badge-warning">accepted</span>
                   @elseif ($order->status == 'fulfilled')
                     <span class="badge badge-pill badge-success">fulfilled</span>
+                  @elseif ($order->status == 'expired')
+                    <span class="badge badge-pill badge-secondary">expired</span>
                   @else
                     @if ($order->bidsAcceptedFirst->count())
                     <span class="badge badge-pill badge-primary">{{ $order->bidsAcceptedFirst->count() }} {{ Str::plural('bid', $order->bidsAcceptedFirst->count()) }}</span>
@@ -101,6 +103,10 @@
 
                       @if ($bid->status == 'cancelled')
                       <span class="badge badge-pill badge-dark">cancelled</span>
+                      @endif
+
+                      @if ($bid->status == 'expired')
+                      <span class="badge badge-pill badge-secondary">expired</span>
                       @endif
                     </div>
 
