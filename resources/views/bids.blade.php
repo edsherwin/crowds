@@ -18,28 +18,7 @@
         <div class="card card-main mt-1">
           <div class="card-body">
             <div class="float-right">
-              <small>{{ diffForHumans($bid->order->created_at) }}</small>
-            </div>
-
-            <div class="mt-1">
-              <h6>
-                Request #{{ orderNumber($bid->order->id) }}
-                @if ($bid->status == 'accepted')
-                <span class="badge badge-pill badge-warning">accepted</span>
-                @endif
-
-                @if ($bid->status == 'no_show')
-                <span class="badge badge-pill badge-danger">no show</span>
-                @endif
-
-                @if ($bid->status == 'fulfilled')
-                <span class="badge badge-pill badge-success">fulfilled</span>
-                @endif
-
-                @if ($bid->status == 'cancelled')
-                <span class="badge badge-pill badge-dark">cancelled</span>
-                @endif
-              </h6>
+              <small class="text-secondary">{{ diffForHumans($bid->order->created_at) }}</small>
             </div>
 
             <div class="d-flex flex-row mt-1">
@@ -54,6 +33,25 @@
                 </div>
                 @endif
               </div>
+            </div>
+
+            <div class="mt-2">
+              <strong>Request #{{ orderNumber($bid->order->id) }}</strong>
+              @if ($bid->status == 'accepted')
+              <span class="badge badge-pill badge-warning">accepted</span>
+              @endif
+
+              @if ($bid->status == 'no_show')
+              <span class="badge badge-pill badge-danger">no show</span>
+              @endif
+
+              @if ($bid->status == 'fulfilled')
+              <span class="badge badge-pill badge-success">fulfilled</span>
+              @endif
+
+              @if ($bid->status == 'cancelled')
+              <span class="badge badge-pill badge-dark">cancelled</span>
+              @endif
             </div>
 
             <div class="mt-1">
@@ -75,7 +73,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="float-right">
-                  <small>{{ diffForHumans($bid->created_at) }}</small>
+                  <small class="text-secondary">{{ diffForHumans($bid->created_at) }}</small>
                 </div>
               </div>
             </div>

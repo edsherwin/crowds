@@ -44,7 +44,7 @@
               <div class="card-body">
 
                 <div class="float-right">
-                  <small>{{ diffForHumans($order->created_at) }}</small>
+                  <small class="text-secondary">{{ diffForHumans($order->created_at) }}</small>
                 </div>
 
                 <div class="d-flex flex-row mt-1">
@@ -53,16 +53,14 @@
                   </div>
                   <div class="pl-2">
                     <a href="/user/{{ $order->user_id }}/reputation">{{ $order->user->name }}</a>
-                    @if ($order->status == 'fulfilled')
-                    <div>
-                      <span class="badge badge-pill badge-success">fulfilled</span>
-                    </div>
-                    @endif
                   </div>
                 </div>
 
                 <div class="mt-2">
-                  <h6>Request #{{ orderNumber($order->id) }}</h6>
+                  <strong>Request #{{ orderNumber($order->id) }}</strong>
+                  @if ($order->status == 'fulfilled')
+                    <span class="badge badge-pill badge-success">fulfilled</span>
+                  @endif
                 </div>
 
                 <div>

@@ -43,7 +43,7 @@
               <div class="card-body">
 
                 <div class="float-right">
-                  <small>{{ diffForHumans($order->created_at) }}</small>
+                  <small class="text-secondary">{{ diffForHumans($order->created_at) }}</small>
                 </div>
 
                 <div class="d-flex flex-row mt-1">
