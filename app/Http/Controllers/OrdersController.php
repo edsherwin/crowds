@@ -39,6 +39,7 @@ class OrdersController extends Controller
         
         $orders = Order::where('user_id', Auth::id())
             ->with(['bids', 'bids.user'])
+            ->general()
             ->latest()
             ->paginate(10);
 
