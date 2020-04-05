@@ -26,7 +26,6 @@ class OrdersController extends Controller
         })
             ->where('id', '!=', Auth::id())
             ->where('barangay_id', Auth::user()->barangay_id)
-            ->whereNotNull('bot_user_id')
             ->get();
 
         Notification::send($users, new OrderCreated);
