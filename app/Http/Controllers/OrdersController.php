@@ -38,7 +38,7 @@ class OrdersController extends Controller
     public function index() {
         
         $orders = Order::where('user_id', Auth::id())
-            ->with(['bids', 'bids.user'])
+            ->with(['bidsAcceptedFirst', 'bids.user'])
             ->general()
             ->latest()
             ->paginate(10);

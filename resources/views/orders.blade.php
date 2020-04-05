@@ -42,8 +42,8 @@
                   @elseif ($order->status == 'fulfilled')
                     <span class="badge badge-pill badge-success">fulfilled</span>
                   @else
-                    @if ($order->bids->count())
-                    <span class="badge badge-pill badge-primary">{{ $order->bids->count() }} {{ Str::plural('bid', $order->bids->count()) }}</span>
+                    @if ($order->bidsAcceptedFirst->count())
+                    <span class="badge badge-pill badge-primary">{{ $order->bidsAcceptedFirst->count() }} {{ Str::plural('bid', $order->bidsAcceptedFirst->count()) }}</span>
                     @endif
                   @endif
                 </div>
@@ -54,9 +54,9 @@
               </div>
             </div>
 
-            @if (!is_null($order->bids))
+            @if (!is_null($order->bidsAcceptedFirst))
               <div class="bids clearfix mb-5">
-                @foreach ($order->bids as $bid)
+                @foreach ($order->bidsAcceptedFirst as $bid)
                 <div class="card mt-1 offset-1">
                   <div class="card-body">
 

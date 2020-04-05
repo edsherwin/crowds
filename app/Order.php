@@ -22,6 +22,10 @@ class Order extends Model
     	return $this->hasMany(Bid::class);
     }
 
+    public function bidsAcceptedFirst() {
+        return $this->hasMany(Bid::class)->orderBy('status', 'ASC'); // accepted, cancelled, fulfilled, no show, posted
+    }
+
     public function postedBids() {
         return $this->hasMany(Bid::class)->where('status', 'posted');
     }
