@@ -17,6 +17,7 @@
         
         <div class="loaded-content">
           <ul>
+            <li>Name: <span id="user-name"></span></li>
             <li>Phone number: <a href="#" id="phone-number"></a></li>
             <li>Messenger: <a href="#" id="messenger-id"></a></li>
           </ul>

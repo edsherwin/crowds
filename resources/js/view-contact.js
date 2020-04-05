@@ -14,10 +14,11 @@ $('.view-contact').click(function() {
 	$('.loader').show();
 	$('.loaded-content').hide();
 
-	$.get(`/user/${user_id}`, ({ phone_number, messenger_id }) => {
+	$.get(`/user/${user_id}`, ({ name, phone_number, messenger_id }) => {
 		$('.loader').hide();
 		$('.loaded-content').show();
 		
+		$('#user-name').text(name);
 		$('#phone-number')
 			.prop('href', `tel:+${phone_number}`)
 			.text(phone_number);

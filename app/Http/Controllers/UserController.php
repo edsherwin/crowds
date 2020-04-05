@@ -108,7 +108,11 @@ class UserController extends Controller
 
 
     public function show(User $user) {
-        return $user->detail;
+        return [
+            'name' => $user->name,
+            'phone_number' => $user->detail->phone_number,
+            'messenger_id' => $user->detail->messenger_id
+        ];
     }
 
 }
