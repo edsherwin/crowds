@@ -61,10 +61,12 @@
                   </div>
                 </div>
 
-                <div class="mt-1">
-                  <p>
-                  {{ $order->description }}
-                  </p>
+                <div class="mt-2">
+                  <h6>Request #{{ orderNumber($order->id) }}</h6>
+                </div>
+
+                <div>
+                  {{ $order->description }}  
                 </div>
                 
                 @if (Auth::user()->user_type == 'officer')
