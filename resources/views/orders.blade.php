@@ -80,6 +80,11 @@
 
                             <div class="pl-2">
                               <a href="/user/{{ $bid->user_id }}/reputation">{{ $bid->user->name }}</a>
+                              <div>
+                                @if ($bid->user->user_type == 'officer')
+                                <span class="badge badge-pill badge-info">officer</span>
+                                @endif
+                              </div>
                             </div>
                           </div>
                         </div>
